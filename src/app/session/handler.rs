@@ -10,7 +10,8 @@ pub fn login(login: Json<Login>) -> Output<String> {
 }
 
 #[post("/signup", format = "application/json", data="<signup>")]
-pub fn signup(signup: Json<Signup>) -> &'static str {
+pub fn signup(signup: Json<Signup>) -> Output<String> {
     println!("{:?}", signup);
-    "Sign up"
+
+    Output::message("Hello World")
 }

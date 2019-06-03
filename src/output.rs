@@ -1,7 +1,7 @@
 use std::io::Cursor;
 use serde_derive::{Serialize, Deserialize};
 use rocket::request::Request;
-use rocket::response::{self, Response, Responder};
+use rocket::response::{Response, Responder};
 use rocket::http::{ContentType, Status};
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -9,6 +9,7 @@ pub enum Error {
     ServerError,
     InvalidQuery,
     NotFound,
+    Unauthorized,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -54,11 +55,23 @@ impl<T: serde::Serialize> Responder<'static> for Output<T> {
         match serde_json::to_string(&self) {
             Ok(json_str) => Response::build()
                 .header(ContentType::new("application", "json"))
+                .status(match self.error {
+                    None => Status::Ok,
+                    Some(v) => match v {
+
+                        Error::ServerError => Status::InternalServerError,
+                        Error::InvalidQuery => Status::BadRequest,
+                        Error::NotFound => Status::NotFound,
+                        Error::Unauthorized => Status::Unauthorized,
+
+                    }
+                })
                 .sized_body(Cursor::new(json_str))
                 .ok(),
-            Err(e) => Response::build()
+            Err(_) => Response::build()
                 .header(ContentType::Plain)
-                .sized_body(Cursor::new(String::from("Server error")))
+                .status(Status::InternalServerError)
+                .sized_body(Cursor::new(String::from("Server error -- could not build output object")))
                 .ok(),
         }
     }
