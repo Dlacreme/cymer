@@ -1,0 +1,16 @@
+[app]
+version = 0.1
+name = "Cymer"
+prod = false
+
+[db]
+host = "localhost"
+port = 5432
+name = "cymer_dev"
+user = "cymer"
+password = "cymer_rules"
+uri = "postgres://cymer:cymer_rules@localhost:5432/cymer_dev"
+
+[network]
+host = "127.0.0.1"
+port = 7070

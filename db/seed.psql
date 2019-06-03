@@ -1,0 +1,12 @@
+-- Roles
+INSERT INTO role (label) VALUES ('Admin');
+INSERT INTO role (label) VALUES ('User');
+
+INSERT INTO employee_role (label) VALUES ('Manager');
+INSERT INTO employee_role (label) VALUES ('Staff');
+
+-- User
+INSERT INTO public.profile (firstname, lastname, email, phone_number) VALUES('Mathieu', 'Delacroix', 'mathieu@cymer.com', '+33643085503');
+INSERT INTO public.user (role_id, email, password, created_at, profile_id) VALUES (1, 'mathieu@cymer.com', '92dcd49d91c0ddf1c77443039371aad3', NOW(), 1);
+INSERT INTO company (label, created_by_id, created_at, is_disabled) VALUES ('DLACREME', 1, NOW(), 'f');
+INSERT INTO employee (user_id, company_id, employee_role_id, is_disabled) VALUES (1, 1, 1, 'f');
