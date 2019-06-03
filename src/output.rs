@@ -1,4 +1,8 @@
+use std::io::Cursor;
 use serde_derive::{Serialize, Deserialize};
+use rocket::request::Request;
+use rocket::response::{self, Response, Responder};
+use rocket::http::{ContentType, Status};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub enum Error {
@@ -8,13 +12,13 @@ pub enum Error {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct Output<T> {
+pub struct Output<T: serde::Serialize> {
     message: String,
     data: Option<T>,
     error: Option<Error>,
 }
 
-impl<T> Output<T> {
+impl<T: serde::Serialize> Output<T> {
 
     pub fn message<D>(message: D) -> Self
     where D: std::fmt::Display {
@@ -43,4 +47,19 @@ impl<T> Output<T> {
         }
     }
 
+}
+
+impl<T: serde::Serialize> Responder<'static> for Output<T> {
+    fn respond_to(self, _: &Request) -> Result<Response<'static>, Status> {
+        match serde_json::to_string(&self) {
+            Ok(json_str) => Response::build()
+                .header(ContentType::new("application", "json"))
+                .sized_body(Cursor::new(json_str))
+                .ok(),
+            Err(e) => Response::build()
+                .header(ContentType::Plain)
+                .sized_body(Cursor::new(String::from("Server error")))
+                .ok(),
+        }
+    }
 }

@@ -3,13 +3,10 @@ use rocket_contrib::json::{Json};
 use crate::output::Output;
 
 #[post("/login", format = "application/json", data="<login>")]
-pub fn login(login: Json<Login>) -> Json<Output<String>> {
+pub fn login(login: Json<Login>) -> Output<String> {
     println!("{:?}", login);
-    Json(Output::message("Hello World"))
-    // Some(json!(Message::new("hell world")))
-    // Some(json!({
-    //     "helo": "haha"
-    // }))
+
+    Output::message("Hello World")
 }
 
 #[post("/signup", format = "application/json", data="<signup>")]
