@@ -7,25 +7,32 @@ Centralize your [e]commerce
 
 Because we are using relative paths, commands must be run from the root folder
 
-- `$> ./bin/db.sh init`: create and set up the database
-- `$> ./bin/db.sh`: reset the database
 - `$> cargo run`: run the API
 - `$> cargo run ./env/prod.toml`: run the API with prod env
 - `$> cargo watch -x run`: run in dev mode (live reload)
 - `$> cargo watch -x test`: run test with hot reload
+- `$> diesel migration run`: run the migration (up)
+- `$> diesel migration redo`: reset the migration (down + up)
+- `$> diesel database setup`: create the database
+- `$> diesel database reset`: drop & create the database
 
 
 ## Database
 
- * `/db` folder contains a schema usable with `https://ondras.zarovi.cz/sql/demo/?keyword=default`
- * `/db/seed.psql` contains the DB seed
+First create `cymer` user with approprivate access:
+```
+$> sudo -u postgres psql
+** connect to your local psql
+postgres=# CREATE USER cymer WITH ENCRYPTED PASSWORD 'cymer_rules';
+postgres=# ALTER USER cymer WITH CREATEDB;
+postgres=# \q
+```
 
-Update Schema:
- 1. Go on ondras application and update the schema as you wish
- 2. Save as xml your new schema and overwrite the existing one
- 3. Extract your new schema as sql and overwrite `db/import.psql`
- 4. Ondras has some issue with psql types. Therefore, make sure you replace:
- ```
-`datetime` -> `timestamp`
-`tinyint` -> `bool`
+Install `diesel-cli`  ( https://github.com/diesel-rs/diesel/tree/master/diesel_cli )
+
+Run:
+```
+$> diesel database setup
+$> diesel migration run
+$> ./db/seed.sh
 ```
