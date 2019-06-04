@@ -15,6 +15,7 @@ Because we are using relative paths, commands must be run from the root folder
 - `$> diesel migration redo`: reset the migration (down + up)
 - `$> diesel database setup`: create the database
 - `$> diesel database reset`: drop & create the database
+- `$> diesel print-schema -> src/schema.rs`: build the schema.rs file
 
 
 ## Database
