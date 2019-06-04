@@ -14,7 +14,7 @@ pub struct Signup {
 }
 
 impl Login {
-    pub fn validate(&self) -> Result<(), String> {
+    pub fn validate(&self) -> Result<(), &str> {
         validator::is_email(&self.email)?;
 
         Result::Ok(())
@@ -22,7 +22,7 @@ impl Login {
 }
 
 impl Signup {
-    pub fn validate(&self) -> Result<(), String> {
+    pub fn validate(&self) -> Result<(), &str> {
         validator::is_email(&self.email)?;
         validator::is_valid_password(&self.password)?;
         Result::Ok(())

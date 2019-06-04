@@ -6,10 +6,10 @@ use rocket::http::{ContentType, Status};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub enum Error {
-    ServerError(String),
-    InvalidQuery(String),
-    NotFound(String),
-    Unauthorized(String),
+    ServerError(u16),
+    InvalidQuery(u16),
+    NotFound(u16),
+    Unauthorized(u16),
 }
 
 #[derive(Debug, Serialize, Deserialize)]

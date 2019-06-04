@@ -15,6 +15,7 @@ pub mod parser;
 pub mod service;
 pub mod db;
 pub mod model;
+pub mod code;
 pub mod schema;
 mod app;
 
