@@ -5,28 +5,40 @@ use rocket::response::{Response, Responder};
 use rocket::http::{ContentType, Status};
 
 #[derive(Debug, Serialize, Deserialize)]
-pub enum Error {
-    ServerError(u16),
-    InvalidQuery(u16),
-    NotFound(u16),
-    Unauthorized(u16),
+pub enum Code {
+    Success,
+    ServerError,
+    DatabaseError,
+    Unauthorized,
+    InvalidInput,
+    ResourceNotFound,
+    ResourceAlreadyExisting,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Output<T: serde::Serialize> {
     message: String,
     data: Option<T>,
-    error: Option<Error>,
+    code: Code,
 }
 
 impl<T: serde::Serialize> Output<T> {
+
+    pub fn new<D>(message: D, code: Code) -> Self
+    where D: std::fmt::Display {
+        Self {
+            message: format!("{}", message),
+            data: None,
+            code: code,
+        }
+    }
 
     pub fn message<D>(message: D) -> Self
     where D: std::fmt::Display {
         Self {
             message: format!("{}", message),
             data: None,
-            error: None,
+            code: Code::Success,
         }
     }
 
@@ -35,16 +47,7 @@ impl<T: serde::Serialize> Output<T> {
         Self {
             message: format!("{}", message),
             data: Some(data),
-            error: None,
-        }
-    }
-
-    pub fn error<D>(message: D, error: Error) -> Self
-    where D: std::fmt::Display {
-        Self {
-            message: format!("{}", message),
-            data: None,
-            error: Some(error),
+            code: Code::Success,
         }
     }
 
@@ -55,14 +58,14 @@ impl<T: serde::Serialize> Responder<'static> for Output<T> {
         match serde_json::to_string(&self) {
             Ok(json_str) => Response::build()
                 .header(ContentType::new("application", "json"))
-                .status(match self.error {
-                    None => Status::Ok,
-                    Some(v) => match v {
-                        Error::ServerError(_) => Status::InternalServerError,
-                        Error::InvalidQuery(_) => Status::BadRequest,
-                        Error::NotFound(_) => Status::NotFound,
-                        Error::Unauthorized(_) => Status::Unauthorized,
-                    }
+                .status(match self.code {
+                    Code::Success => Status::Ok,
+                    Code::ServerError => Status::InternalServerError,
+                    Code::DatabaseError => Status::InternalServerError,
+                    Code::InvalidInput => Status::BadRequest,
+                    Code::ResourceNotFound => Status::NotFound,
+                    Code::ResourceAlreadyExisting => Status::Forbidden,
+                    Code::Unauthorized => Status::Unauthorized,
                 })
                 .sized_body(Cursor::new(json_str))
                 .ok(),
