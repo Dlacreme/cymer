@@ -13,3 +13,4 @@ pub fn create(co: &PgConnection, email: &str) -> QueryResult<PersonProfile> {
         .values(&profile)
         .get_result::<PersonProfile>(co)
 }
+

@@ -25,7 +25,6 @@ fn hello_world(env: &env::Env) {
 }
 
 fn main() {
-    // Load and parse the env file
     let env = env::Env::load(get_config_path().as_str());
     hello_world(&env);
     let rocket = rocket::ignite()
