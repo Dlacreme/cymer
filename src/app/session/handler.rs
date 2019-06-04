@@ -3,6 +3,7 @@ use rocket_contrib::json::{Json};
 use crate::output::{self, Output};
 use crate::db;
 use crate::msg;
+use crate::model::person::Person;
 
 #[post("/login", format = "application/json", data="<login>")]
 pub fn login(conn: db::Conn, login: Json<Login>) -> Output<String> {
@@ -33,4 +34,8 @@ pub fn signup(conn: db::Conn, signup: Json<Signup>) -> Output<String> {
             }
         },
     }
+}
+
+fn login_person(code: db::Conn, person: Person) -> Output<String> {
+    Output::message("Hello")
 }

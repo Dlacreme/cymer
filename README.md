@@ -7,6 +7,8 @@ Centralize your [e]commerce
 
 Because we are using relative paths, commands must be run from the root folder
 
+- `$> bin/dev.sh`: run in dev mode
+- `$> bin/seed.sh`: seed the database
 - `$> cargo run`: run the API
 - `$> cargo run ./env/prod.toml`: run the API with prod env
 - `$> cargo watch -x run`: run in dev mode (live reload)
@@ -35,5 +37,16 @@ Run:
 ```
 $> diesel database setup
 $> diesel migration run
-$> ./db/seed.sh
+$> ./bin/seed.sh
 ```
+
+
+## Env
+
+All the public variables are saved on the `env/{env}.toml` file
+
+But the following ones are required in your env:
+```
+CYMER_SECRET="anythingyoulikeordontlikethatsreallyjustuptoyou"
+```
+! `bin/dev.sh` script automatically add a secret key
