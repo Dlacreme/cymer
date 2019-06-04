@@ -7,6 +7,7 @@ use rocket::http::{ContentType, Status};
 #[derive(Debug, Serialize, Deserialize)]
 pub enum Code {
     Success,
+    ResourceCreated,
     ServerError,
     DatabaseError,
     Unauthorized,
@@ -51,6 +52,15 @@ impl<T: serde::Serialize> Output<T> {
         }
     }
 
+    pub fn data_code<D>(message: D, data: T, code: Code) -> Self
+    where D: std::fmt::Display {
+        Self {
+            message: format!("{}", message),
+            data: Some(data),
+            code: code,
+        }
+    }
+
 }
 
 impl<T: serde::Serialize> Responder<'static> for Output<T> {
@@ -60,6 +70,7 @@ impl<T: serde::Serialize> Responder<'static> for Output<T> {
                 .header(ContentType::new("application", "json"))
                 .status(match self.code {
                     Code::Success => Status::Ok,
+                    Code::ResourceCreated => Status::Created,
                     Code::ServerError => Status::InternalServerError,
                     Code::DatabaseError => Status::InternalServerError,
                     Code::InvalidInput => Status::BadRequest,
