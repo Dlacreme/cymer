@@ -58,10 +58,10 @@ impl<T: serde::Serialize> Responder<'static> for Output<T> {
                 .status(match self.error {
                     None => Status::Ok,
                     Some(v) => match v {
-                        Error::ServerError(String) => Status::InternalServerError,
-                        Error::InvalidQuery(String) => Status::BadRequest,
-                        Error::NotFound(String) => Status::NotFound,
-                        Error::Unauthorized(String) => Status::Unauthorized,
+                        Error::ServerError(_) => Status::InternalServerError,
+                        Error::InvalidQuery(_) => Status::BadRequest,
+                        Error::NotFound(_) => Status::NotFound,
+                        Error::Unauthorized(_) => Status::Unauthorized,
                     }
                 })
                 .sized_body(Cursor::new(json_str))
