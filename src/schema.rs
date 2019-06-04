@@ -39,14 +39,14 @@ table! {
         email -> Varchar,
         password -> Varchar,
         created_at -> Timestamp,
-        profile_id -> Int4,
+        person_profile_id -> Int4,
         active_company_id -> Nullable<Int4>,
         notif_counter -> Int4,
     }
 }
 
 table! {
-    profile (id) {
+    person_profile (id) {
         id -> Int4,
         firstname -> Nullable<Varchar>,
         lastname -> Nullable<Varchar>,
@@ -59,7 +59,7 @@ joinable!(employee -> company (company_id));
 joinable!(employee -> employee_access (employee_access_id));
 joinable!(employee -> person (person_id));
 joinable!(person -> access (access_id));
-joinable!(person -> profile (profile_id));
+joinable!(person -> person_profile (person_profile_id));
 
 allow_tables_to_appear_in_same_query!(
     access,
@@ -67,5 +67,5 @@ allow_tables_to_appear_in_same_query!(
     employee,
     employee_access,
     person,
-    profile,
+    person_profile,
 );

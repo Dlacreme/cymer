@@ -1,11 +1,11 @@
 use crate::schema::person;
 use serde_derive::{Serialize, Deserialize};
-use crate::model::profile::Profile;
+use crate::model::person_profile::PersonProfile;
 use crate::model::access::Access;
 
-#[derive(Queryable, Associations, Serialize, Deserialize)]
+#[derive(Debug, Queryable, Associations, Serialize, Deserialize)]
 #[belongs_to(Access)]
-#[belongs_to(Profile)]
+#[belongs_to(PersonProfile)]
 #[table_name = "person"]
 pub struct Person {
     pub id: i32,
@@ -13,7 +13,7 @@ pub struct Person {
     pub email: String,
     pub password: String,
     pub created_at: chrono::NaiveDateTime,
-    pub profile_id: i32,
+    pub person_profile_id: i32,
     pub active_company_id: Option<i32>,
     pub notif_counter: i32,
 }
@@ -32,7 +32,6 @@ impl InsertablePerson {
             email: person.email,
             password: person.password,
             access_id: person.access_id,
-
         }
     }
 }

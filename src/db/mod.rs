@@ -4,7 +4,6 @@ use diesel::r2d2::ConnectionManager;
 use rocket::{Outcome, Request, State};
 use rocket::http::Status;
 use rocket::request::{self, FromRequest};
-use std::env;
 use std::ops::Deref;
 
 pub mod person;

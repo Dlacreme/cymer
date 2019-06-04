@@ -1,3 +1,3 @@
 pub mod person;
-pub mod profile;
+pub mod person_profile;
 pub mod access;

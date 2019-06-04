@@ -30,21 +30,21 @@ impl<T: serde::Serialize> Output<T> {
         }
     }
 
-    pub fn data<D>(message: D, data: Option<T>) -> Self
+    pub fn data<D>(message: D, data: T) -> Self
     where D: std::fmt::Display {
         Self {
             message: format!("{}", message),
-            data: data,
+            data: Some(data),
             error: None,
         }
     }
 
-    pub fn error<D>(message: D, error: Option<Error>) -> Self
+    pub fn error<D>(message: D, error: Error) -> Self
     where D: std::fmt::Display {
         Self {
             message: format!("{}", message),
             data: None,
-            error: error,
+            error: Some(error),
         }
     }
 

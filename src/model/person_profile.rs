@@ -1,9 +1,9 @@
 use serde_derive::{Serialize, Deserialize};
-use crate::schema::profile;
+use crate::schema::person_profile;
 
 #[derive(Queryable, AsChangeset, Serialize, Deserialize)]
-#[table_name = "profile"]
-pub struct Profile {
+#[table_name = "person_profile"]
+pub struct PersonProfile {
     pub id: i32,
     pub firstname: String,
     pub lastname: String,

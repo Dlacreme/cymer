@@ -8,6 +8,7 @@ extern crate toml;
 extern crate regex;
 extern crate chrono;
 
+pub mod msg;
 pub mod output;
 pub mod env;
 pub mod parser;

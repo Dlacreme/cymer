@@ -4,7 +4,7 @@ CREATE TABLE person (
   email VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL,
   created_at TIMESTAMP NOT NULL,
-  profile_id INT NOT NULL,
+  person_profile_id INT NOT NULL,
   active_company_id INT NULL,
   notif_counter INT NOT NULL DEFAULT 0
 );
@@ -38,7 +38,7 @@ CREATE TABLE employee (
   PRIMARY KEY (id)
 );
 
-CREATE TABLE profile (
+CREATE TABLE person_profile (
   id  SERIAL NOT NULL ,
   firstname varchar(255) ,
   lastname varchar(255) ,
@@ -48,7 +48,7 @@ CREATE TABLE profile (
 );
 
 ALTER TABLE person ADD FOREIGN KEY (access_id) REFERENCES access (id);
-ALTER TABLE person ADD FOREIGN KEY (profile_id) REFERENCES profile (id);
+ALTER TABLE person ADD FOREIGN KEY (person_profile_id) REFERENCES person_profile (id);
 ALTER TABLE person ADD FOREIGN KEY (active_company_id) REFERENCES company (id);
 ALTER TABLE company ADD FOREIGN KEY (created_by_id) REFERENCES person (id);
 ALTER TABLE employee ADD FOREIGN KEY (person_id) REFERENCES person (id);

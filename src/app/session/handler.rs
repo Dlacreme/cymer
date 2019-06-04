@@ -1,11 +1,15 @@
 use super::input::{Login, Signup};
 use rocket_contrib::json::{Json};
-use crate::output::Output;
+use crate::output::{self, Output};
 use crate::db;
 
 #[post("/login", format = "application/json", data="<login>")]
 pub fn login(connection: db::Conn, login: Json<Login>) -> Output<String> {
-    db::person::get_by_credentials(&connection, login.email.as_str(), login.get_password().as_str());
+    let person = match db::person::get_by_credentials(&connection, login.email.as_str(), login.get_password().as_str()) {
+        Ok(person) => person,
+        Err(_) => return Output::error(crate::msg::ENTITY_NOT_FOUND, output::Error::NotFound),
+    };
+    println!("Person found: {:?}", person);
     Output::message("Hello World")
 }
 
