@@ -1,4 +1,5 @@
 use serde_derive::{Serialize, Deserialize};
+use crate::parser::validator;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Login {
@@ -13,13 +14,17 @@ pub struct Signup {
 }
 
 impl Login {
-    pub fn validate(&self) -> Option<String> {
-        None
+    pub fn validate(&self) -> Result<(), String> {
+        validator::is_email(&self.email)?;
+
+        Result::Ok(())
     }
 }
 
 impl Signup {
-    pub fn validate(&self) -> Option<String> {
-        None
+    pub fn validate(&self) -> Result<(), String> {
+        validator::is_email(&self.email)?;
+        validator::is_valid_password(&self.password)?;
+        Result::Ok(())
     }
 }
