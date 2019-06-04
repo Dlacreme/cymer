@@ -12,13 +12,9 @@ pub mod person;
 // Extracted from Diesel doc - https://rocket.rs/v0.4/guide/state/#databases
 type Pool = r2d2::Pool<ConnectionManager<PgConnection>>;
 
-pub fn init_pool() -> Pool {
-    let manager = ConnectionManager::<PgConnection>::new(database_url());
+pub fn init_pool(database_url: String) -> Pool {
+    let manager = ConnectionManager::<PgConnection>::new(database_url);
     Pool::new(manager).expect("db pool")
-}
-
-fn database_url() -> String {
-    env::var("DATABASE_URL").expect("DATABASE_URL must be set")
 }
 
 pub struct Conn(pub r2d2::PooledConnection<ConnectionManager<PgConnection>>);

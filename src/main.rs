@@ -28,7 +28,7 @@ fn main() {
     let env = env::Env::load(get_config_path().as_str());
     hello_world(&env);
     let rocket = rocket::ignite()
-        .manage(db::init_pool());
+        .manage(db::init_pool(env.db.uri.clone()));
     app::routes(rocket)
         .launch();
 }
