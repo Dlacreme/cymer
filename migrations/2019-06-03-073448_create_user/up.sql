@@ -40,10 +40,10 @@ CREATE TABLE employee (
 
 CREATE TABLE person_profile (
   id  SERIAL NOT NULL ,
-  firstname varchar(255) ,
-  lastname varchar(255) ,
-  email varchar(255) ,
-  phone_number varchar(50) ,
+  firstname varchar(255) NOT NULL,
+  lastname varchar(255) NOT NULL,
+  email varchar(255) NOT NULL,
+  phone_number varchar(50) NOT NULL,
   PRIMARY KEY (id)
 );
 

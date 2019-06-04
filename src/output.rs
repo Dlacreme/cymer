@@ -6,10 +6,10 @@ use rocket::http::{ContentType, Status};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub enum Error {
-    ServerError,
-    InvalidQuery,
-    NotFound,
-    Unauthorized,
+    ServerError(String),
+    InvalidQuery(String),
+    NotFound(String),
+    Unauthorized(String),
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -58,12 +58,10 @@ impl<T: serde::Serialize> Responder<'static> for Output<T> {
                 .status(match self.error {
                     None => Status::Ok,
                     Some(v) => match v {
-
-                        Error::ServerError => Status::InternalServerError,
-                        Error::InvalidQuery => Status::BadRequest,
-                        Error::NotFound => Status::NotFound,
-                        Error::Unauthorized => Status::Unauthorized,
-
+                        Error::ServerError(String) => Status::InternalServerError,
+                        Error::InvalidQuery(String) => Status::BadRequest,
+                        Error::NotFound(String) => Status::NotFound,
+                        Error::Unauthorized(String) => Status::Unauthorized,
                     }
                 })
                 .sized_body(Cursor::new(json_str))

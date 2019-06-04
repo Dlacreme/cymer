@@ -2,20 +2,27 @@ use super::input::{Login, Signup};
 use rocket_contrib::json::{Json};
 use crate::output::{self, Output};
 use crate::db;
+use crate::msg;
 
 #[post("/login", format = "application/json", data="<login>")]
-pub fn login(connection: db::Conn, login: Json<Login>) -> Output<String> {
-    let person = match db::person::get_by_credentials(&connection, login.email.as_str(), login.get_password().as_str()) {
+pub fn login(conn: db::Conn, login: Json<Login>) -> Output<String> {
+    let person = match db::person::get_by_credentials(&conn, login.email.as_str(), login.password.as_str()) {
         Ok(person) => person,
-        Err(_) => return Output::error(crate::msg::ENTITY_NOT_FOUND, output::Error::NotFound),
+        Err(e) => return Output::error(msg::ENTITY_NOT_FOUND, output::Error::NotFound(e.to_string())),
     };
     println!("Person found: {:?}", person);
     Output::message("Hello World")
 }
 
 #[post("/signup", format = "application/json", data="<signup>")]
-pub fn signup(signup: Json<Signup>) -> Output<String> {
-    println!("{:?}", signup);
-
-    Output::message("Hello World")
+pub fn signup(conn: db::Conn, signup: Json<Signup>) -> Output<String> {
+    match db::person::get_by_email(&conn, signup.email.as_str()) {
+        Ok(_) => return Output::error(msg::USER_EXISTING, output::Error::InvalidQuery(String::from(msg::USER_EXISTING))),
+        Err(_) => {
+            match db::person::create(&conn, signup.email.as_str(), signup.password.as_str()) {
+                Ok(person) =>  return Output::message("PERSON CREATED"),
+                Err(e) => return Output::error(msg::USER_EXISTING, output::Error::ServerError(e.to_string())),
+            }
+        },
+    }
 }

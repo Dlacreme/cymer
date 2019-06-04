@@ -48,10 +48,10 @@ table! {
 table! {
     person_profile (id) {
         id -> Int4,
-        firstname -> Nullable<Varchar>,
-        lastname -> Nullable<Varchar>,
-        email -> Nullable<Varchar>,
-        phone_number -> Nullable<Varchar>,
+        firstname -> Varchar,
+        lastname -> Varchar,
+        email -> Varchar,
+        phone_number -> Varchar,
     }
 }
 
