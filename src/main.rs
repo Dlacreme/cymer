@@ -40,6 +40,7 @@ fn main() {
     let rocket = rocket::ignite()
         .manage(db::init_pool(env.db.uri.clone()));
     app::routes(rocket)
+        .mount("/public", rocket_contrib::serve::StaticFiles::from("static"))
         .launch();
 }
 

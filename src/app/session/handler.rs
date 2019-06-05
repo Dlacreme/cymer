@@ -5,6 +5,12 @@ use crate::db;
 use crate::msg;
 use crate::model::person::Person;
 use crate::service::jwt;
+use crate::app::current_user::CurrentUser;
+
+#[get("/me")]
+pub fn me(conn: db::Conn, currentUser: CurrentUser) -> Output<CurrentUser> {
+    Output::data("OK", currentUser)
+}
 
 #[post("/login", format = "application/json", data="<login>")]
 pub fn login(conn: db::Conn, login: Json<Login>) -> Output<super::output::Login> {
@@ -24,7 +30,7 @@ pub fn login(conn: db::Conn, login: Json<Login>) -> Output<super::output::Login>
                 Err(_) => return Output::new(msg::LOGIN_FAILED, output::Code::InvalidPassword),
             }
         },
-        Err(e) => return Output::new(e.to_string(), output::Code::ResourceNotFound),
+        Err(e) => return Output::new(e, output::Code::ResourceNotFound),
     };
     login_person(conn, person)
 }
@@ -40,7 +46,7 @@ pub fn signup(conn: db::Conn, signup: Json<Signup>) -> Output<super::output::Log
         Err(_) => {
             match db::person::create(&conn, signup.email.as_str(), signup.password.as_str()) {
                 Ok(person) => return login_person(conn, person),
-                Err(e) => return Output::new(e.to_string(), output::Code::DatabaseError),
+                Err(e) => return Output::new(e, output::Code::DatabaseError),
             }
         },
     }
