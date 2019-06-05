@@ -7,6 +7,7 @@ const TOKEN_DURATION: i64 = 30;
 #[derive(Debug)]
 pub struct Payload {
     pub person_id: i32,
+    pub access: i32,
     pub active_company_id: Option<i32>,
 }
 
@@ -14,6 +15,7 @@ impl Payload {
     pub fn from_person(person: &Person) -> Self {
         Self {
             person_id: person.id,
+            access: person.access_id,
             active_company_id: person.active_company_id,
         }
     }
@@ -23,6 +25,7 @@ impl Payload {
         let company_id = payload["active_company_id"].to_string().parse::<i32>().unwrap();
         Self {
             person_id: payload["person_id"].to_string().parse::<i32>().unwrap(),
+            access: payload["access"].to_string().parse::<i32>().unwrap(),
             active_company_id: match company_id > 0 {
                 true => Some(company_id),
                 false => None,
@@ -39,6 +42,7 @@ pub fn serialize(payload: Payload) -> Result<String, Error> {
     let json_payload = json!({
         "valid_until": get_valid_until().timestamp(),
         "person_id": payload.person_id,
+        "access": payload.access,
         "active_company_id": payload.active_company_id.unwrap_or(0), // 0 will be converted to None
     });
     encode(json_header, &get_secret(), &json_payload, Algorithm::HS256)
