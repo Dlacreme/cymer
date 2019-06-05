@@ -1,0 +1,991 @@
+{
+  "front-version": "2.19.2",
+  "version": 3,
+  "nodes": [
+    {
+      "type": "Project",
+      "id": "88d34951-18ca-4d36-b25b-a3a35c03bac7",
+      "lastModified": "2019-06-05T22:30:51.167+07:00",
+      "name": "cymer"
+    },
+    {
+      "type": "Service",
+      "id": "7c8c6f18-f8fd-48d6-899c-4e87651c47b9",
+      "lastModified": "2019-05-19T13:53:56.536+07:00",
+      "name": "Auth",
+      "parentId": "88d34951-18ca-4d36-b25b-a3a35c03bac7"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+        "name": "POST"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\n  \"email\": \"mathieu@cymer.com\",\n  \"password\": \"toto4242\"\n}"
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:7070",
+        "path": "/login"
+      },
+      "id": "fb1d4b12-0a4a-4f04-8dcb-c83e4ed8671c",
+      "lastModified": "2019-06-05T11:02:33.058+07:00",
+      "name": "login",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "7c8c6f18-f8fd-48d6-899c-4e87651c47b9"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+        "name": "GET"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:7070",
+        "path": "/me"
+      },
+      "id": "64fa5b48-83cb-41b7-b9fa-d0980667d75e",
+      "lastModified": "2019-06-05T22:28:51.548+07:00",
+      "name": "me",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Authorization",
+          "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY3RpdmVfY29tcGFueV9pZCI6MCwicGVyc29uX2lkIjoxLCJwZXJzb25fcm9sZV9pZCI6MSwidmFsaWRfdW50aWwiOjE3MzY2OTU3MTN9.TuQUV6UGsKalQwXt3CGhmxBLsH59pWO35UHyliIME0c"
+        }
+      ],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "7c8c6f18-f8fd-48d6-899c-4e87651c47b9"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+        "name": "POST"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\n  \"email\": \"dddwq@heleeo.com\",\n  \"password\": \"toto4242\"\n}"
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:7070",
+        "path": "/signup"
+      },
+      "id": "77801388-a0d0-4ed5-b1c8-29a01c6b2860",
+      "lastModified": "2019-06-05T10:51:04.153+07:00",
+      "name": "signin",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "7c8c6f18-f8fd-48d6-899c-4e87651c47b9"
+    },
+    {
+      "type": "Service",
+      "id": "8d7646bd-a983-4943-9a5e-f7c39f34f82c",
+      "lastModified": "2019-06-05T21:41:46.444+07:00",
+      "name": "Company",
+      "parentId": "88d34951-18ca-4d36-b25b-a3a35c03bac7"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+        "name": "POST"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{}"
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:7070",
+        "path": "/company"
+      },
+      "id": "a5d802ca-0e21-4395-8db6-88241e037005",
+      "lastModified": "2019-06-05T22:29:04.386+07:00",
+      "name": "Create",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "enabled": true,
+          "name": "Authorization",
+          "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY3RpdmVfY29tcGFueV9pZCI6MCwicGVyc29uX2lkIjoxLCJwZXJzb25fcm9sZV9pZCI6MSwidmFsaWRfdW50aWwiOjE3MzY2OTU3MTN9.TuQUV6UGsKalQwXt3CGhmxBLsH59pWO35UHyliIME0c"
+        }
+      ],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "8d7646bd-a983-4943-9a5e-f7c39f34f82c"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.5",
+        "name": "DELETE"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:7070",
+        "path": "/company/1"
+      },
+      "id": "f49e4c70-eaa4-4e4a-ade4-75719b6ecea3",
+      "lastModified": "2019-06-05T22:29:07.355+07:00",
+      "name": "Disable",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Authorization",
+          "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY3RpdmVfY29tcGFueV9pZCI6MCwicGVyc29uX2lkIjoxLCJwZXJzb25fcm9sZV9pZCI6MSwidmFsaWRfdW50aWwiOjE3MzY2OTU3MTN9.TuQUV6UGsKalQwXt3CGhmxBLsH59pWO35UHyliIME0c"
+        }
+      ],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "8d7646bd-a983-4943-9a5e-f7c39f34f82c"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+        "name": "GET"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:7070",
+        "path": "/company/1"
+      },
+      "id": "1afa5431-1f46-404e-a841-08dd8020b222",
+      "lastModified": "2019-06-05T22:29:10.813+07:00",
+      "name": "Get",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Authorization",
+          "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY3RpdmVfY29tcGFueV9pZCI6MCwicGVyc29uX2lkIjoxLCJwZXJzb25fcm9sZV9pZCI6MSwidmFsaWRfdW50aWwiOjE3MzY2OTU3MTN9.TuQUV6UGsKalQwXt3CGhmxBLsH59pWO35UHyliIME0c"
+        }
+      ],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "8d7646bd-a983-4943-9a5e-f7c39f34f82c"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+        "name": "GET"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:7070",
+        "path": "/company"
+      },
+      "id": "417cee9b-d60e-4626-a1ac-0157e8ebd222",
+      "lastModified": "2019-06-05T22:29:20.510+07:00",
+      "name": "Get Active",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Authorization",
+          "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY3RpdmVfY29tcGFueV9pZCI6MCwicGVyc29uX2lkIjoxLCJwZXJzb25fcm9sZV9pZCI6MSwidmFsaWRfdW50aWwiOjE3MzY2OTU3MTN9.TuQUV6UGsKalQwXt3CGhmxBLsH59pWO35UHyliIME0c"
+        }
+      ],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "8d7646bd-a983-4943-9a5e-f7c39f34f82c"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+        "name": "GET"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:7070",
+        "path": "/company/1/employees"
+      },
+      "id": "11c18c5d-1a4c-43a1-b3d8-f9a8587aa72e",
+      "lastModified": "2019-06-05T22:30:08.349+07:00",
+      "name": "Get Employee",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Authorization",
+          "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY3RpdmVfY29tcGFueV9pZCI6MCwicGVyc29uX2lkIjoxLCJwZXJzb25fcm9sZV9pZCI6MSwidmFsaWRfdW50aWwiOjE3MzY2OTU3MTN9.TuQUV6UGsKalQwXt3CGhmxBLsH59pWO35UHyliIME0c"
+        }
+      ],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "8d7646bd-a983-4943-9a5e-f7c39f34f82c"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+        "name": "GET"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:7070",
+        "path": "/company/employees"
+      },
+      "id": "928edd20-593d-4368-88e0-14894fa0aa31",
+      "lastModified": "2019-06-05T22:30:12.426+07:00",
+      "name": "Get Employee Active",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Authorization",
+          "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY3RpdmVfY29tcGFueV9pZCI6MCwicGVyc29uX2lkIjoxLCJwZXJzb25fcm9sZV9pZCI6MSwidmFsaWRfdW50aWwiOjE3MzY2OTU3MTN9.TuQUV6UGsKalQwXt3CGhmxBLsH59pWO35UHyliIME0c"
+        }
+      ],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "8d7646bd-a983-4943-9a5e-f7c39f34f82c"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+        "name": "GET"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:7070",
+        "path": "/company/list"
+      },
+      "id": "8e888394-83c0-4553-b82d-36fc29953839",
+      "lastModified": "2019-06-05T22:30:15.537+07:00",
+      "name": "List Available",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Authorization",
+          "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY3RpdmVfY29tcGFueV9pZCI6MCwicGVyc29uX2lkIjoxLCJwZXJzb25fcm9sZV9pZCI6MSwidmFsaWRfdW50aWwiOjE3MzY2OTU3MTN9.TuQUV6UGsKalQwXt3CGhmxBLsH59pWO35UHyliIME0c"
+        }
+      ],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "8d7646bd-a983-4943-9a5e-f7c39f34f82c"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+        "name": "POST"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:7070",
+        "path": "/company/2/use"
+      },
+      "id": "08e04814-be7e-4a8c-9745-1fe99a59ad04",
+      "lastModified": "2019-06-05T22:30:18.704+07:00",
+      "name": "Set as Active",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "enabled": true,
+          "name": "Authorization",
+          "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY3RpdmVfY29tcGFueV9pZCI6MCwicGVyc29uX2lkIjoxLCJwZXJzb25fcm9sZV9pZCI6MSwidmFsaWRfdW50aWwiOjE3MzY2OTU3MTN9.TuQUV6UGsKalQwXt3CGhmxBLsH59pWO35UHyliIME0c"
+        }
+      ],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "8d7646bd-a983-4943-9a5e-f7c39f34f82c"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.4",
+        "name": "PUT"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:7070",
+        "path": "/company/1"
+      },
+      "id": "b178a9fd-3627-4d9e-973f-bc9d9fe12c7e",
+      "lastModified": "2019-06-05T22:30:21.731+07:00",
+      "name": "Update",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "enabled": true,
+          "name": "Authorization",
+          "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY3RpdmVfY29tcGFueV9pZCI6MCwicGVyc29uX2lkIjoxLCJwZXJzb25fcm9sZV9pZCI6MSwidmFsaWRfdW50aWwiOjE3MzY2OTU3MTN9.TuQUV6UGsKalQwXt3CGhmxBLsH59pWO35UHyliIME0c"
+        }
+      ],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "8d7646bd-a983-4943-9a5e-f7c39f34f82c"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.4",
+        "name": "PUT"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:7070",
+        "path": "/company"
+      },
+      "id": "b67d8620-4091-4855-a3b9-787066c2e158",
+      "lastModified": "2019-06-05T22:30:25.469+07:00",
+      "name": "Update Active",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "enabled": true,
+          "name": "Authorization",
+          "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY3RpdmVfY29tcGFueV9pZCI6MCwicGVyc29uX2lkIjoxLCJwZXJzb25fcm9sZV9pZCI6MSwidmFsaWRfdW50aWwiOjE3MzY2OTU3MTN9.TuQUV6UGsKalQwXt3CGhmxBLsH59pWO35UHyliIME0c"
+        }
+      ],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "8d7646bd-a983-4943-9a5e-f7c39f34f82c"
+    },
+    {
+      "type": "Service",
+      "id": "12d80eab-80a8-483d-9c84-8ad2db32a092",
+      "lastModified": "2019-06-05T21:41:42.348+07:00",
+      "name": "Employee",
+      "parentId": "88d34951-18ca-4d36-b25b-a3a35c03bac7"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.5",
+        "name": "DELETE"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:7070",
+        "path": "/employee/1"
+      },
+      "id": "0eb1a328-26c5-4c97-a430-609575b9ad59",
+      "lastModified": "2019-06-05T22:30:30.269+07:00",
+      "name": "Disable",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Authorization",
+          "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY3RpdmVfY29tcGFueV9pZCI6MCwicGVyc29uX2lkIjoxLCJwZXJzb25fcm9sZV9pZCI6MSwidmFsaWRfdW50aWwiOjE3MzY2OTU3MTN9.TuQUV6UGsKalQwXt3CGhmxBLsH59pWO35UHyliIME0c"
+        }
+      ],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "12d80eab-80a8-483d-9c84-8ad2db32a092"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+        "name": "POST"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\n  \"email\": \"hello\"\n}"
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:7070",
+        "path": "/employee/invite"
+      },
+      "id": "a49cdbf3-faa0-41a1-8865-2aa61bb2ae38",
+      "lastModified": "2019-06-05T22:30:33.393+07:00",
+      "name": "Invite",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "enabled": true,
+          "name": "Authorization",
+          "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY3RpdmVfY29tcGFueV9pZCI6MCwicGVyc29uX2lkIjoxLCJwZXJzb25fcm9sZV9pZCI6MSwidmFsaWRfdW50aWwiOjE3MzY2OTU3MTN9.TuQUV6UGsKalQwXt3CGhmxBLsH59pWO35UHyliIME0c"
+        }
+      ],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "12d80eab-80a8-483d-9c84-8ad2db32a092"
+    },
+    {
+      "type": "Service",
+      "id": "04078fed-8bd2-412a-b864-11b96c166aa6",
+      "lastModified": "2019-05-19T13:53:53.991+07:00",
+      "name": "User",
+      "parentId": "88d34951-18ca-4d36-b25b-a3a35c03bac7"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+        "name": "GET"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:7070",
+        "path": "/user/1"
+      },
+      "id": "b95df2cb-5229-43d0-8aa2-a76d5e0e6f40",
+      "lastModified": "2019-06-05T22:30:37.122+07:00",
+      "name": "Get",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Authorization",
+          "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY3RpdmVfY29tcGFueV9pZCI6MCwicGVyc29uX2lkIjoxLCJwZXJzb25fcm9sZV9pZCI6MSwidmFsaWRfdW50aWwiOjE3MzY2OTU3MTN9.TuQUV6UGsKalQwXt3CGhmxBLsH59pWO35UHyliIME0c"
+        }
+      ],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "04078fed-8bd2-412a-b864-11b96c166aa6"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+        "name": "GET"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:7070",
+        "path": "/user/1"
+      },
+      "id": "92f74ac7-8bb1-43b6-b6c8-b70d494ac4e6",
+      "lastModified": "2019-06-05T22:30:40.753+07:00",
+      "name": "Get Me",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Authorization",
+          "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY3RpdmVfY29tcGFueV9pZCI6MCwicGVyc29uX2lkIjoxLCJwZXJzb25fcm9sZV9pZCI6MSwidmFsaWRfdW50aWwiOjE3MzY2OTU3MTN9.TuQUV6UGsKalQwXt3CGhmxBLsH59pWO35UHyliIME0c"
+        }
+      ],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "04078fed-8bd2-412a-b864-11b96c166aa6"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+        "name": "GET"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:7070",
+        "path": "/user/notification"
+      },
+      "id": "734108d1-6041-4ae4-a522-fedcb8b826c3",
+      "lastModified": "2019-06-05T21:51:53.390+07:00",
+      "name": "Notification GET",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Authorization",
+          "value": "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY3RpdmVfY29tcGFueV9pZCI6MCwicGVyc29uX2lkIjoxLCJ2YWxpZF91bnRpbCI6MTU2MjMwNDMyMH0.NnH-OIpUwioOXHL3LPX8yNWICrTqnGJH7bIDHrVzZV4"
+        }
+      ],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "04078fed-8bd2-412a-b864-11b96c166aa6"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.5",
+        "name": "DELETE"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:7070",
+        "path": "/user/notification"
+      },
+      "id": "a1d903e1-8ff7-43b1-bb50-62051e7f9f6e",
+      "lastModified": "2019-06-05T22:30:43.765+07:00",
+      "name": "Notification READ",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Authorization",
+          "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY3RpdmVfY29tcGFueV9pZCI6MCwicGVyc29uX2lkIjoxLCJwZXJzb25fcm9sZV9pZCI6MSwidmFsaWRfdW50aWwiOjE3MzY2OTU3MTN9.TuQUV6UGsKalQwXt3CGhmxBLsH59pWO35UHyliIME0c"
+        }
+      ],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "04078fed-8bd2-412a-b864-11b96c166aa6"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.4",
+        "name": "PUT"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:7070",
+        "path": "/user/1"
+      },
+      "id": "77cdc8a1-9f80-4de6-8360-e1f370306001",
+      "lastModified": "2019-06-05T22:30:47.131+07:00",
+      "name": "Update",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "enabled": true,
+          "name": "Authorization",
+          "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY3RpdmVfY29tcGFueV9pZCI6MCwicGVyc29uX2lkIjoxLCJwZXJzb25fcm9sZV9pZCI6MSwidmFsaWRfdW50aWwiOjE3MzY2OTU3MTN9.TuQUV6UGsKalQwXt3CGhmxBLsH59pWO35UHyliIME0c"
+        }
+      ],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "04078fed-8bd2-412a-b864-11b96c166aa6"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.4",
+        "name": "PUT"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:7070",
+        "path": "/user"
+      },
+      "id": "6a5e56d4-a349-4c06-b189-7aceca06c88b",
+      "lastModified": "2019-06-05T22:30:51.167+07:00",
+      "name": "Update Me",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "enabled": true,
+          "name": "Authorization",
+          "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY3RpdmVfY29tcGFueV9pZCI6MCwicGVyc29uX2lkIjoxLCJwZXJzb25fcm9sZV9pZCI6MSwidmFsaWRfdW50aWwiOjE3MzY2OTU3MTN9.TuQUV6UGsKalQwXt3CGhmxBLsH59pWO35UHyliIME0c"
+        }
+      ],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "04078fed-8bd2-412a-b864-11b96c166aa6"
+    }
+  ]
+}

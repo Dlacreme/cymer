@@ -14,7 +14,6 @@ pub fn get_by_email(co: &PgConnection, email: &str) -> QueryResult<Person> {
 }
 
 pub fn get_by_credentials(co: &PgConnection, email: &str, password: &str) -> Result<Person, diesel::result::Error> {
-    println!("{}", password);
     let ps: Person = sPerson::table
         .filter(sPerson::email.eq(email))
         // .filter(sPerson::email.eq(email).and(sPerson::password.eq(password)))

@@ -29,8 +29,8 @@ impl <'a, 'r> FromRequest<'a, 'r> for CurrentUser {
                     return Outcome::Failure((Status::Unauthorized, ()));
                 }
                 match jwt::deserialize(String::from(token_items[1])) {
-                    Ok(token) => Outcome::Success(CurrentUser::load(token)),
-                    Err(_) => Outcome::Failure((Status::Unauthorized, ())),
+                    Ok(token) => return Outcome::Success(CurrentUser::load(token)),
+                    Err(_) => return Outcome::Failure((Status::Unauthorized, ())),
                 }
             }
             None => Outcome::Failure((Status::Unauthorized, ())),

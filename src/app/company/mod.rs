@@ -32,7 +32,7 @@ pub fn get_available(_conn: db::Conn, _current_user: CurrentUser) -> CR<String> 
     CR::not_implemented()
 }
 
-#[post("/use/<id>")]
+#[post("/<id>/use")]
 pub fn set_active(_conn: db::Conn, _current_user: CurrentUser, id: i32) -> CR<String> {
     println!("SET ACTIVE {}", id);
     CR::not_implemented()
