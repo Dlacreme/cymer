@@ -12,8 +12,18 @@ pub fn login(conn: db::Conn, login: Json<Login>) -> Output<super::output::Login>
         Ok(_) => (),
         Err(s) => return Output::new(s, output::Code::InvalidInput)
     };
-    let person = match db::person::get_by_credentials(&conn, login.email.as_str(), login.password.as_str()) {
-        Ok(person) => person,
+    let person = match db::person::get_by_email(&conn, login.email.as_str()) {
+        Ok(person) => {
+            match bcrypt::verify(&login.password, person.password.as_str()) {
+                Ok(is_valid) => {
+                    if is_valid == false {
+                        return Output::new(msg::LOGIN_FAILED, output::Code::InvalidPassword);
+                    }
+                    person
+                },
+                Err(_) => return Output::new(msg::LOGIN_FAILED, output::Code::InvalidPassword),
+            }
+        },
         Err(e) => return Output::new(e.to_string(), output::Code::ResourceNotFound),
     };
     login_person(conn, person)
@@ -36,7 +46,7 @@ pub fn signup(conn: db::Conn, signup: Json<Signup>) -> Output<super::output::Log
     }
 }
 
-fn login_person(code: db::Conn, person: Person) -> Output<super::output::Login> {
+fn login_person(_conn: db::Conn, person: Person) -> Output<super::output::Login> {
     let token = match jwt::serialize(jwt::Payload::from_person(&person)) {
         Ok(token) => token,
         Err(_) => {

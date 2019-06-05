@@ -11,6 +11,7 @@ pub enum Code {
     ServerError,
     DatabaseError,
     Unauthorized,
+    InvalidPassword,
     InvalidInput,
     ResourceNotFound,
     ResourceAlreadyExisting,
@@ -77,6 +78,7 @@ impl<T: serde::Serialize> Responder<'static> for Output<T> {
                     Code::ResourceNotFound => Status::NotFound,
                     Code::ResourceAlreadyExisting => Status::Forbidden,
                     Code::Unauthorized => Status::Unauthorized,
+                    Code::InvalidPassword => Status::Unauthorized,
                 })
                 .sized_body(Cursor::new(json_str))
                 .ok(),
