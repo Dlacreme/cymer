@@ -21,13 +21,13 @@ pub enum Code {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct Output<T: serde::Serialize> {
+pub struct CR<T: serde::Serialize> {
     message: String,
     data: Option<T>,
     code: Code,
 }
 
-impl<T: serde::Serialize> Output<T> {
+impl<T: serde::Serialize> CR<T> {
 
     pub fn new<D>(message: D, code: Code) -> Self
     where D: std::fmt::Display {
@@ -91,7 +91,7 @@ impl<T: serde::Serialize> Output<T> {
 
 }
 
-impl<T: serde::Serialize> Responder<'static> for Output<T> {
+impl<T: serde::Serialize> Responder<'static> for CR<T> {
     fn respond_to(self, _: &Request) -> Result<Response<'static>, Status> {
         match serde_json::to_string(&self) {
             Ok(json_str) => Response::build()
