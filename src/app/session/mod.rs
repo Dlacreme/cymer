@@ -15,7 +15,7 @@ pub fn me(current_user: CurrentUser) -> CR<CurrentUser> {
 }
 
 #[post("/login", format = "application/json", data="<login>")]
-pub fn login(conn: db::Conn, login: Json<input::ILogin>) -> CR<output::OLogin> {
+pub fn login(conn: db::Conn, login: Json<input::Login>) -> CR<output::Login> {
     match login.validate() {
         Ok(_) => (),
         Err(s) => return CR::new(s, cr::Code::InvalidInput)
@@ -38,7 +38,7 @@ pub fn login(conn: db::Conn, login: Json<input::ILogin>) -> CR<output::OLogin> {
 }
 
 #[post("/signup", format = "application/json", data="<signup>")]
-pub fn signup(conn: db::Conn, signup: Json<input::ISignup>) -> CR<output::OLogin> {
+pub fn signup(conn: db::Conn, signup: Json<input::Signup>) -> CR<output::Login> {
     match signup.validate() {
         Ok(_) => (),
         Err(s) => return CR::new(s, cr::Code::InvalidInput)
@@ -54,7 +54,7 @@ pub fn signup(conn: db::Conn, signup: Json<input::ISignup>) -> CR<output::OLogin
     }
 }
 
-fn login_person(_conn: db::Conn, mut person: Person) -> CR<output::OLogin> {
+fn login_person(_conn: db::Conn, mut person: Person) -> CR<output::Login> {
     let token = match jwt::serialize(jwt::Payload::from_person(&person)) {
         Ok(token) => token,
         Err(_) => {
@@ -63,5 +63,5 @@ fn login_person(_conn: db::Conn, mut person: Person) -> CR<output::OLogin> {
         }
     };
     person.password = String::from("PRIVATE");
-    CR::data_code(msg::OK, output::OLogin::new(token, person), cr::Code::ResourceCreated)
+    CR::data_code(msg::OK, output::Login::new(token, person), cr::Code::ResourceCreated)
 }

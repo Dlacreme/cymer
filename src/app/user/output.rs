@@ -2,7 +2,7 @@ use serde_derive::{Serialize, Deserialize};
 // use crate::model::person::Person;
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct OPerson {
+pub struct Person {
     pub id: i32,
     pub access_id: i32,
     pub email: String,

@@ -7,7 +7,7 @@ pub mod output;
 pub mod input;
 
 #[get("/")]
-pub fn get_me(_conn: db::Conn, _current_user: CurrentUser) -> CR<output::OPerson> {
+pub fn get_me(_conn: db::Conn, _current_user: CurrentUser) -> CR<output::Person> {
     // let person = match db::person::find(&conn, current_user.id) {
     //     Ok(person) => person,
     //     Err(e) => return Output::new(e, Code::ResourceNotFound),
@@ -16,19 +16,19 @@ pub fn get_me(_conn: db::Conn, _current_user: CurrentUser) -> CR<output::OPerson
 }
 
 #[get("/<id>")]
-pub fn get(_conn: db::Conn, _current_user: CurrentUser, id: i32) -> CR<output::OPerson> {
+pub fn get(_conn: db::Conn, _current_user: CurrentUser, id: i32) -> CR<output::Person> {
     println!("GET USER {}", id);
     CR::not_implemented()
 }
 
 #[put("/", format = "application/json", data="<input>")]
-pub fn update_me(_conn: db::Conn, _current_user: CurrentUser, input: Json<input::IUpdate>) -> CR<output::OPerson> {
+pub fn update_me(_conn: db::Conn, _current_user: CurrentUser, input: Json<input::Update>) -> CR<output::Person> {
     println!("UPDATE ME {:?}", input);
     CR::not_implemented()
 }
 
 #[put("/<id>", format = "application/json", data="<input>")]
-pub fn update(_conn: db::Conn, _current_user: CurrentUser, id: i32, input: Json<input::IUpdate>) -> CR<output::OPerson> {
+pub fn update(_conn: db::Conn, _current_user: CurrentUser, id: i32, input: Json<input::Update>) -> CR<output::Person> {
     println!("UPDATE {} {:?} ", id, input);
     CR::not_implemented()
 }
