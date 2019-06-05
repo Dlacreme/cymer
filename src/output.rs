@@ -3,6 +3,8 @@ use serde_derive::{Serialize, Deserialize};
 use rocket::request::Request;
 use rocket::response::{Response, Responder};
 use rocket::http::{ContentType, Status};
+use diesel::QueryResult;
+use crate::msg;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub enum Code {
@@ -59,6 +61,22 @@ impl<T: serde::Serialize> Output<T> {
             message: format!("{}", message),
             data: Some(data),
             code: code,
+        }
+    }
+
+    pub fn from_query_result<D>(data: QueryResult<T>) -> Self
+    where D: std::fmt::Display {
+        match data {
+            Ok(d) => Self {
+                message: format!("{}", msg::OK),
+                data: Some(d),
+                code: Code::Success
+            },
+            Err(e) => Self {
+                message: format!("{}", e.to_string()),
+                data: None,
+                code: Code::ResourceNotFound,
+            }
         }
     }
 

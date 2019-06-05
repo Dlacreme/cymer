@@ -18,6 +18,7 @@ pub mod service;
 pub mod db;
 pub mod model;
 pub mod schema;
+pub mod current_user;
 mod app;
 
 const DEFAULT_CONFIG_FILENAME: &str = "./env/dev.toml";

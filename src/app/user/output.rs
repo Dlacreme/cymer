@@ -1,6 +1,8 @@
-use crate::model::person;
+use serde_derive::{Serialize, Deserialize};
+use crate::model::person::Person;
 
-pub struct Person {
+#[derive(Debug, Serialize, Deserialize)]
+pub struct OPerson {
     pub id: i32,
     pub access_id: i32,
     pub email: String,
@@ -10,14 +12,14 @@ pub struct Person {
     pub notif_counter: i32,
 }
 
-impl Person {
+impl OPerson {
     pub fn from_person(person: &Person) -> Self {
         Self {
-            id, person.id,
+            id: person.id,
             access_id: person.access_id,
             email: person.email,
             created_at: person.created_at,
-            person_profile_id: person.created_at,
+            person_profile_id: person.person_profile_id,
             active_company_id: person.active_company_id,
             notif_counter: person.notif_counter,
         }

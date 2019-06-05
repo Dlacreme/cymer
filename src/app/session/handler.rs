@@ -1,11 +1,12 @@
-use super::input::{Login, Signup};
+use super::input::{ILogin, ISignup};
+use super::output::{OLogin};
 use rocket_contrib::json::{Json};
 use crate::output::{self, Output};
 use crate::db;
 use crate::msg;
 use crate::model::person::Person;
 use crate::service::jwt;
-use crate::app::current_user::CurrentUser;
+use crate::current_user::CurrentUser;
 
 #[get("/me")]
 pub fn me(current_user: CurrentUser) -> Output<CurrentUser> {
@@ -13,7 +14,7 @@ pub fn me(current_user: CurrentUser) -> Output<CurrentUser> {
 }
 
 #[post("/login", format = "application/json", data="<login>")]
-pub fn login(conn: db::Conn, login: Json<Login>) -> Output<super::output::Login> {
+pub fn login(conn: db::Conn, login: Json<ILogin>) -> Output<OLogin> {
     match login.validate() {
         Ok(_) => (),
         Err(s) => return Output::new(s, output::Code::InvalidInput)
@@ -36,7 +37,7 @@ pub fn login(conn: db::Conn, login: Json<Login>) -> Output<super::output::Login>
 }
 
 #[post("/signup", format = "application/json", data="<signup>")]
-pub fn signup(conn: db::Conn, signup: Json<Signup>) -> Output<super::output::Login> {
+pub fn signup(conn: db::Conn, signup: Json<ISignup>) -> Output<OLogin> {
     match signup.validate() {
         Ok(_) => (),
         Err(s) => return Output::new(s, output::Code::InvalidInput)
@@ -52,7 +53,7 @@ pub fn signup(conn: db::Conn, signup: Json<Signup>) -> Output<super::output::Log
     }
 }
 
-fn login_person(_conn: db::Conn, mut person: Person) -> Output<super::output::Login> {
+fn login_person(_conn: db::Conn, mut person: Person) -> Output<OLogin> {
     let token = match jwt::serialize(jwt::Payload::from_person(&person)) {
         Ok(token) => token,
         Err(_) => {
@@ -61,5 +62,5 @@ fn login_person(_conn: db::Conn, mut person: Person) -> Output<super::output::Lo
         }
     };
     person.password = String::from("PRIVATE");
-    Output::data_code(msg::OK, super::output::Login::new(token, person), output::Code::ResourceCreated)
+    Output::data_code(msg::OK, OLogin::new(token, person), output::Code::ResourceCreated)
 }
