@@ -2,17 +2,19 @@ use serde_derive::{Serialize, Deserialize};
 use rocket::{self, Request, Outcome};
 use rocket::request::{self, FromRequest};
 use rocket::http::Status;
-use crate::service::jwt;
+use crate::service::jwt::{self, Payload};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct CurrentUser {
     id: i32,
+    active_company_id: Option<i32>,
 }
 
 impl CurrentUser {
-    pub fn load(id: i32) -> CurrentUser {
+    pub fn load(token_payload: Payload) -> CurrentUser {
         Self {
-            id,
+            id: token_payload.person_id,
+            active_company_id: token_payload.active_company_id,
         }
     }
 }
@@ -27,8 +29,8 @@ impl <'a, 'r> FromRequest<'a, 'r> for CurrentUser {
                     return Outcome::Failure((Status::Unauthorized, ()));
                 }
                 match jwt::deserialize(String::from(token_items[1])) {
-                    Ok(token) => Outcome::Success(CurrentUser::load(token.person_id)),
-                    Err(_) => Outcome::Failure((Status::BadRequest, ())),
+                    Ok(token) => Outcome::Success(CurrentUser::load(token)),
+                    Err(_) => Outcome::Failure((Status::Unauthorized, ())),
                 }
             }
             None => Outcome::Failure((Status::Unauthorized, ())),

@@ -8,8 +8,8 @@ use crate::service::jwt;
 use crate::app::current_user::CurrentUser;
 
 #[get("/me")]
-pub fn me(conn: db::Conn, currentUser: CurrentUser) -> Output<CurrentUser> {
-    Output::data("OK", currentUser)
+pub fn me(current_user: CurrentUser) -> Output<CurrentUser> {
+    Output::data("OK", current_user)
 }
 
 #[post("/login", format = "application/json", data="<login>")]
