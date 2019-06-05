@@ -10,12 +10,8 @@ pub fn routes(rocket: rocket::Rocket) -> rocket::Rocket {
         session::handler::me,
         session::handler::login,
         session::handler::signup,
-    ]);
-
-    rocket.mount("/user", routes![
+    ]).mount("/user", routes![
         user::handler::get_me,
         user::handler::get,
-    ]);
-
-    rocket
+    ])
 }

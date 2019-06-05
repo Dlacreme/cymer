@@ -17,6 +17,7 @@ pub enum Code {
     InvalidInput,
     ResourceNotFound,
     ResourceAlreadyExisting,
+    NotImplemented,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -80,6 +81,14 @@ impl<T: serde::Serialize> Output<T> {
         }
     }
 
+    pub fn not_implemented() -> Self {
+        Self {
+            message: format!("{}", msg::NOT_IMPLEMENTED),
+            data: None,
+            code: Code::NotImplemented
+        }
+    }
+
 }
 
 impl<T: serde::Serialize> Responder<'static> for Output<T> {
@@ -97,6 +106,7 @@ impl<T: serde::Serialize> Responder<'static> for Output<T> {
                     Code::ResourceAlreadyExisting => Status::Forbidden,
                     Code::Unauthorized => Status::Unauthorized,
                     Code::InvalidPassword => Status::Unauthorized,
+                    Code::NotImplemented => Status::NotImplemented,
                 })
                 .sized_body(Cursor::new(json_str))
                 .ok(),
