@@ -15,7 +15,7 @@ impl Payload {
     pub fn from_person(person: &Person) -> Self {
         Self {
             person_id: person.id,
-            access: person.access_id,
+            access: person.person_role_id,
             active_company_id: person.active_company_id,
         }
     }

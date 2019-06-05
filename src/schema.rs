@@ -1,11 +1,4 @@
 table! {
-    access (id) {
-        id -> Int4,
-        label -> Varchar,
-    }
-}
-
-table! {
     company (id) {
         id -> Int4,
         label -> Varchar,
@@ -20,13 +13,19 @@ table! {
         id -> Int4,
         person_id -> Int4,
         company_id -> Int4,
-        employee_access_id -> Int4,
         is_disabled -> Bool,
     }
 }
 
 table! {
-    employee_access (id) {
+    employee_access (employee_id, employee_role_id) {
+        employee_id -> Int4,
+        employee_role_id -> Int4,
+    }
+}
+
+table! {
+    employee_role (id) {
         id -> Int4,
         label -> Varchar,
     }
@@ -35,13 +34,14 @@ table! {
 table! {
     person (id) {
         id -> Int4,
-        access_id -> Int4,
+        person_role_id -> Int4,
         email -> Varchar,
         password -> Varchar,
         created_at -> Timestamp,
         person_profile_id -> Int4,
         active_company_id -> Nullable<Int4>,
         notif_counter -> Int4,
+        is_disabled -> Bool,
     }
 }
 
@@ -55,17 +55,26 @@ table! {
     }
 }
 
+table! {
+    person_role (id) {
+        id -> Int4,
+        label -> Varchar,
+    }
+}
+
 joinable!(employee -> company (company_id));
-joinable!(employee -> employee_access (employee_access_id));
 joinable!(employee -> person (person_id));
-joinable!(person -> access (access_id));
+joinable!(employee_access -> employee (employee_id));
+joinable!(employee_access -> employee_role (employee_role_id));
 joinable!(person -> person_profile (person_profile_id));
+joinable!(person -> person_role (person_role_id));
 
 allow_tables_to_appear_in_same_query!(
-    access,
     company,
     employee,
     employee_access,
+    employee_role,
     person,
     person_profile,
+    person_role,
 );
