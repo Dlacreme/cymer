@@ -46,7 +46,7 @@ pub fn signup(conn: db::Conn, signup: Json<Signup>) -> Output<super::output::Log
     }
 }
 
-fn login_person(_conn: db::Conn, person: Person) -> Output<super::output::Login> {
+fn login_person(_conn: db::Conn, mut person: Person) -> Output<super::output::Login> {
     let token = match jwt::serialize(jwt::Payload::from_person(&person)) {
         Ok(token) => token,
         Err(_) => {
@@ -54,5 +54,6 @@ fn login_person(_conn: db::Conn, person: Person) -> Output<super::output::Login>
             return Output::new(msg::SERVER_ERROR, output::Code::ServerError)
         }
     };
+    person.password = String::from("PRIVATE");
     Output::data_code(msg::OK, super::output::Login::new(token, person), output::Code::ResourceCreated)
 }
