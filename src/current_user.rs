@@ -6,8 +6,8 @@ use crate::service::jwt::{self, Payload};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct CurrentUser {
-    id: i32,
-    active_company_id: Option<i32>,
+    pub id: i32,
+    pub active_company_id: Option<i32>,
 }
 
 impl CurrentUser {

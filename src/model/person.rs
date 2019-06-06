@@ -5,8 +5,7 @@ use crate::model::person_role::PersonRole;
 use bcrypt::hash;
 
 const HASH_COMPLEX: u32 = 4;
-const USER_ROLE_ID: i32 = 1;
-// const ADMIN_ACCESS_ID: i32 = 2;
+const DEFAULT_ROLE_ID: i32 = 2;
 
 #[derive(Debug, Queryable, Associations, Serialize, Deserialize)]
 #[belongs_to(PersonRole)]
@@ -40,7 +39,7 @@ impl InsertablePerson {
         Self {
             email: String::from(email),
             password: hash(password, HASH_COMPLEX).unwrap(),
-            person_role_id: USER_ROLE_ID,
+            person_role_id: DEFAULT_ROLE_ID,
             created_at: chrono::Utc::now().naive_utc(),
             notif_counter: 0,
             person_profile_id: person_profile_id,

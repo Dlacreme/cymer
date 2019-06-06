@@ -1,4 +1,4 @@
-#![feature(proc_macro_hygiene, decl_macro, custom_attribute)]
+#![feature(proc_macro_hygiene, decl_macro, custom_attribute, type_alias_enum_variants)]
 #[macro_use] extern crate rocket;
 #[macro_use] extern crate diesel;
 #[macro_use] extern crate serde_json;
@@ -19,10 +19,12 @@ pub mod db;
 pub mod model;
 pub mod schema;
 pub mod current_user;
+pub mod view_model;
 mod app;
 
 const DEFAULT_CONFIG_FILENAME: &str = "./env/dev.toml";
 const ENV_SECRET_KEY: &str = "CYMER_SECRET";
+const ENV_CYMER_ENV_KEY: &str = "CYMER_ENV";
 
 fn hello_world(env: &env::Env) {
     println!("{} - v{} running on {} mode", env.app.name, env.app.version.to_string(),
@@ -31,6 +33,7 @@ fn hello_world(env: &env::Env) {
 
 fn check_env() -> Result<(), std::env::VarError> {
     std::env::var(ENV_SECRET_KEY)?;
+    std::env::var(ENV_CYMER_ENV_KEY)?;
     Result::Ok(())
 }
 

@@ -2,7 +2,7 @@ use std::io::Cursor;
 use serde_derive::{Serialize, Deserialize};
 use rocket::request::Request;
 use rocket::response::{Response, Responder};
-use rocket::http::{ContentType, Status};
+use rocket::http::{ContentType, Status, Header};
 use diesel::QueryResult;
 use crate::msg;
 
@@ -47,10 +47,9 @@ impl<T: serde::Serialize> CR<T> {
         }
     }
 
-    pub fn data<D>(message: D, data: T) -> Self
-    where D: std::fmt::Display {
+    pub fn data(data: T) -> Self {
         Self {
-            message: format!("{}", message),
+            message: format!("{}", msg::OK),
             data: Some(data),
             code: Code::Success,
         }
@@ -65,8 +64,7 @@ impl<T: serde::Serialize> CR<T> {
         }
     }
 
-    pub fn from_query_result<D>(data: QueryResult<T>) -> Self
-    where D: std::fmt::Display {
+    pub fn data_query(data: QueryResult<T>) -> Self {
         match data {
             Ok(d) => Self {
                 message: format!("{}", msg::OK),
@@ -96,6 +94,7 @@ impl<T: serde::Serialize> Responder<'static> for CR<T> {
         match serde_json::to_string(&self) {
             Ok(json_str) => Response::build()
                 .header(ContentType::new("application", "json"))
+                .header(Header::new("Accept", get_accept_header()))
                 .status(match self.code {
                     Code::Success => Status::Ok,
                     Code::ResourceCreated => Status::Created,
@@ -116,5 +115,13 @@ impl<T: serde::Serialize> Responder<'static> for CR<T> {
                 .sized_body(Cursor::new(String::from("Server error -- could not build output object")))
                 .ok(),
         }
+    }
+}
+
+fn get_accept_header() -> String {
+    if crate::service::is_prod() {
+        String::from("*")
+    } else {
+        String::from("*")
     }
 }

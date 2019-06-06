@@ -9,7 +9,6 @@ pub fn routes(rocket: rocket::Rocket) -> rocket::Rocket {
     // Public routes only
     rocket.mount("/", routes![
         // Session
-        session::me,
         session::login,
         session::signup,
     ]).mount("/user", routes![

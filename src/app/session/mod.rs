@@ -9,11 +9,6 @@ use crate::current_user::CurrentUser;
 pub mod input;
 pub mod output;
 
-#[get("/me")]
-pub fn me(current_user: CurrentUser) -> CR<CurrentUser> {
-    CR::data("OK", current_user)
-}
-
 #[post("/login", format = "application/json", data="<login>")]
 pub fn login(conn: db::Conn, login: Json<input::Login>) -> CR<output::Login> {
     match login.validate() {
