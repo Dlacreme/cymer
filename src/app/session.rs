@@ -3,14 +3,11 @@ use crate::cr::{self, CR};
 use crate::db;
 use crate::msg;
 use crate::model::person::Person;
+use crate::view_model::session::{Login, Signup, LoginResult};
 use crate::service::jwt;
-use crate::current_user::CurrentUser;
-
-pub mod input;
-pub mod output;
 
 #[post("/login", format = "application/json", data="<login>")]
-pub fn login(conn: db::Conn, login: Json<input::Login>) -> CR<output::Login> {
+pub fn login(conn: db::Conn, login: Json<Login>) -> CR<LoginResult> {
     match login.validate() {
         Ok(_) => (),
         Err(s) => return CR::new(s, cr::Code::InvalidInput)
@@ -33,7 +30,7 @@ pub fn login(conn: db::Conn, login: Json<input::Login>) -> CR<output::Login> {
 }
 
 #[post("/signup", format = "application/json", data="<signup>")]
-pub fn signup(conn: db::Conn, signup: Json<input::Signup>) -> CR<output::Login> {
+pub fn signup(conn: db::Conn, signup: Json<Signup>) -> CR<LoginResult> {
     match signup.validate() {
         Ok(_) => (),
         Err(s) => return CR::new(s, cr::Code::InvalidInput)
@@ -49,7 +46,7 @@ pub fn signup(conn: db::Conn, signup: Json<input::Signup>) -> CR<output::Login> 
     }
 }
 
-fn login_person(_conn: db::Conn, mut person: Person) -> CR<output::Login> {
+fn login_person(_conn: db::Conn, mut person: Person) -> CR<LoginResult> {
     let token = match jwt::serialize(jwt::Payload::from_person(&person)) {
         Ok(token) => token,
         Err(_) => {
@@ -58,5 +55,5 @@ fn login_person(_conn: db::Conn, mut person: Person) -> CR<output::Login> {
         }
     };
     person.password = String::from("PRIVATE");
-    CR::data_code(msg::OK, output::Login::new(token, person), cr::Code::ResourceCreated)
+    CR::data_code(msg::OK, LoginResult::new(token, person), cr::Code::ResourceCreated)
 }

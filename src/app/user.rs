@@ -1,10 +1,8 @@
 use rocket_contrib::json::{Json};
 use crate::db;
-use crate::current_user::CurrentUser;
-use crate::cr::{CR, Code};
-use crate::view_model::user::User;
-
-pub mod input;
+use crate::current_user::{CurrentUser, CurrentAdmin};
+use crate::cr::{CR};
+use crate::view_model::user::{User, UserToUpdate};
 
 #[get("/")]
 pub fn get_me(conn: db::Conn, current_user: CurrentUser) -> CR<User> {
@@ -12,18 +10,18 @@ pub fn get_me(conn: db::Conn, current_user: CurrentUser) -> CR<User> {
 }
 
 #[get("/<id>")]
-pub fn get(conn: db::Conn, _current_user: CurrentUser, id: i32) -> CR<User> {
+pub fn get(conn: db::Conn, _current_admin: CurrentAdmin, id: i32) -> CR<User> {
     CR::data_query(User::from_db(&conn, id))
 }
 
 #[put("/", format = "application/json", data="<input>")]
-pub fn update_me(_conn: db::Conn, _current_user: CurrentUser, input: Json<input::Update>) -> CR<String> {
+pub fn update_me(_conn: db::Conn, _current_user: CurrentUser, input: Json<UserToUpdate>) -> CR<String> {
     println!("UPDATE ME {:?}", input);
     CR::not_implemented()
 }
 
 #[put("/<id>", format = "application/json", data="<input>")]
-pub fn update(_conn: db::Conn, _current_user: CurrentUser, id: i32, input: Json<input::Update>) -> CR<String> {
+pub fn update(_conn: db::Conn, _current_user: CurrentAdmin, id: i32, input: Json<UserToUpdate>) -> CR<String> {
     println!("UPDATE {} {:?} ", id, input);
     CR::not_implemented()
 }

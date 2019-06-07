@@ -2,8 +2,7 @@ use rocket_contrib::json::{Json};
 use crate::db;
 use crate::current_user::CurrentUser;
 use crate::cr::{CR};
-
-pub mod input;
+use crate::view_model::company::{Company, CompanyToUpdate};
 
 #[get("/")]
 pub fn get_active(_conn: db::Conn, _current_user: CurrentUser) -> CR<String> {
@@ -39,19 +38,19 @@ pub fn set_active(_conn: db::Conn, _current_user: CurrentUser, id: i32) -> CR<St
 }
 
 #[post("/", format = "application/json", data="<input>")]
-pub fn create(_conn: db::Conn, _current_user: CurrentUser, input: Json<input::Update>) -> CR<String> {
+pub fn create(_conn: db::Conn, _current_user: CurrentUser, input: Json<CompanyToUpdate>) -> CR<String> {
     println!("CREATE {:?}", input);
     CR::not_implemented()
 }
 
 #[put("/", format = "application/json", data="<input>")]
-pub fn update_active(_conn: db::Conn, _current_user: CurrentUser, input: Json<input::Update>) -> CR<String> {
+pub fn update_active(_conn: db::Conn, _current_user: CurrentUser, input: Json<CompanyToUpdate>) -> CR<String> {
     println!("UPDATE ME {:?}", input);
     CR::not_implemented()
 }
 
 #[put("/<id>", format = "application/json", data="<input>")]
-pub fn update(_conn: db::Conn, _current_user: CurrentUser, id: i32, input: Json<input::Update>) -> CR<String> {
+pub fn update(_conn: db::Conn, _current_user: CurrentUser, id: i32, input: Json<CompanyToUpdate>) -> CR<String> {
     println!("UPDATE {} {:?} ", id, input);
     CR::not_implemented()
 }

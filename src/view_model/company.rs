@@ -1,6 +1,5 @@
 use serde_derive::{Serialize, Deserialize};
-use diesel::{PgConnection, sql_query, RunQueryDsl, QueryResult};
-use crate::model::person_role::{PersonRoleEnum, to_enum};
+use diesel::{PgConnection, QueryResult};
 use crate::db;
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -17,4 +16,9 @@ impl Company {
             label: company.label,
         })
     }
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct CompanyToUpdate {
+    label: String,
 }

@@ -37,3 +37,43 @@ impl <'a, 'r> FromRequest<'a, 'r> for CurrentUser {
         }
     }
 }
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct CurrentAdmin {
+    pub id: i32,
+    pub active_company_id: Option<i32>,
+}
+
+impl CurrentAdmin {
+    pub fn load(token_payload: Payload) -> CurrentAdmin {
+        Self {
+            id: token_payload.person_id,
+            active_company_id: token_payload.active_company_id,
+        }
+    }
+}
+
+impl <'a, 'r> FromRequest<'a, 'r> for CurrentAdmin {
+    type Error = ();
+    fn from_request(rq: &'a Request<'r>) -> request::Outcome<CurrentAdmin, Self::Error> {
+        match rq.headers().get_one("Authorization") {
+            Some(token) => {
+                let token_items: Vec<&str> = token.trim().split_whitespace().collect::<Vec<&str>>();
+                if token_items.len() != 2 {
+                    return Outcome::Failure((Status::Unauthorized, ()));
+                }
+                match jwt::deserialize(String::from(token_items[1])) {
+                    Ok(token) => {
+                        if token.person_role_id == 1 {
+                            return Outcome::Success(CurrentAdmin::load(token));
+                        } else {
+                            return Outcome::Failure((Status::Unauthorized, ()));
+                        }
+                    }
+                    Err(_) => return Outcome::Failure((Status::Unauthorized, ())),
+                }
+            }
+            None => Outcome::Failure((Status::Unauthorized, ())),
+        }
+    }
+}

@@ -14,3 +14,4 @@ pub fn create(co: &PgConnection, email: &str) -> QueryResult<PersonProfile> {
         .get_result::<PersonProfile>(co)
 }
 
+// pub fn update(co: &PgConnection, )

@@ -1,5 +1,5 @@
 use serde_derive::{Serialize, Deserialize};
-use diesel::{PgConnection, sql_query, RunQueryDsl, QueryResult};
+use diesel::{PgConnection, QueryResult};
 use crate::model::person_role::{PersonRoleEnum, to_enum};
 use crate::db;
 use super::company::Company;
@@ -9,7 +9,8 @@ pub struct User {
     pub id: i32,
     pub role: PersonRoleEnum,
     pub email: String,
-    pub name: String,
+    pub firstname: String,
+    pub lastname: String,
     pub phone_number: String,
     pub member_since: chrono::NaiveDateTime,
     pub notif_counter: i32,
@@ -29,7 +30,8 @@ impl User {
             id: person.id,
             role: to_enum(person.person_role_id),
             email: profile.email,
-            name: format!("{} {}", profile.firstname, profile.lastname),
+            firstname: profile.firstname,
+            lastname: profile.lastname,
             phone_number: profile.phone_number,
             member_since: person.created_at,
             notif_counter: person.notif_counter,
@@ -37,4 +39,13 @@ impl User {
         })
     }
 
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct UserToUpdate {
+    email: Option<String>,
+    firstname: Option<String>,
+    lastname: Option<String>,
+    phone_number: Option<String>,
+    role: Option<PersonRoleEnum>,
 }
