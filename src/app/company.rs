@@ -2,7 +2,7 @@ use rocket_contrib::json::{Json};
 use crate::db;
 use crate::current_user::CurrentUser;
 use crate::cr::{CR};
-use crate::view_model::company::{Company, CompanyToUpdate};
+use crate::view_model::company::{CompanyToUpdate};
 
 #[get("/")]
 pub fn get_active(_conn: db::Conn, _current_user: CurrentUser) -> CR<String> {
