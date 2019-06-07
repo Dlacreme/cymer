@@ -3,11 +3,12 @@ CREATE TABLE person (
   person_role_id INT NOT NULL DEFAULT 1,
   email VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL,
-  created_at TIMESTAMP NOT NULL,
   person_profile_id INT NOT NULL,
   active_company_id INT NULL,
   notif_counter INT NOT NULL DEFAULT 0,
-  is_disabled bool NOT NULL DEFAULT 'f'
+  is_disabled bool NOT NULL DEFAULT 'f',
+  created_at TIMESTAMP NOT NULL,
+  updated_at TIMESTAMP NOT NULL,
 );
 
 CREATE TABLE person_role (
@@ -19,8 +20,9 @@ CREATE TABLE company (
   id SERIAL NOT NULL ,
   label varchar(255) NOT NULL,
   created_by_id int NOT NULL ,
-  created_at timestamp NOT NULL ,
   is_disabled bool NOT NULL DEFAULT 'f' ,
+  created_at timestamp NOT NULL ,
+  updated_at TIMESTAMP NOT NULL,
   PRIMARY KEY (id)
 );
 
@@ -35,6 +37,8 @@ CREATE TABLE employee (
   person_id int NOT NULL ,
   company_id int NOT NULL ,
   is_disabled bool NOT NULL DEFAULT 'f' ,
+  created_at timestamp NOT NULL ,
+  updated_at TIMESTAMP NOT NULL,
   PRIMARY KEY (id)
 );
 
@@ -50,6 +54,7 @@ CREATE TABLE person_profile (
   lastname varchar(255) NOT NULL,
   email varchar(255) NOT NULL,
   phone_number varchar(50) NOT NULL,
+  updated_at TIMESTAMP NOT NULL,
   PRIMARY KEY (id)
 );
 

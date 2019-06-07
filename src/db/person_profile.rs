@@ -1,5 +1,6 @@
 use diesel;
 use diesel::prelude::*;
+use crate::view_model::user::UserToUpdate;
 use crate::schema::person_profile as sProfile;
 use crate::model::person_profile::{PersonProfile, InsertablePersonProfile};
 
@@ -14,4 +15,8 @@ pub fn create(co: &PgConnection, email: &str) -> QueryResult<PersonProfile> {
         .get_result::<PersonProfile>(co)
 }
 
-// pub fn update(co: &PgConnection, )
+pub fn update(co: &PgConnection, id: i32, user: UserToUpdate) -> QueryResult<PersonProfile> {
+    let row = diesel::update(sProfile::table.filter(sProfile::id.eq(id)));
+
+    row.get_result(co)
+}
