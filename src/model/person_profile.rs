@@ -1,7 +1,7 @@
 use serde_derive::{Serialize, Deserialize};
 use crate::schema::person_profile;
 
-#[derive(Identifiable, Queryable, AsChangeset, Serialize, Deserialize)]
+#[derive(Debug, Identifiable, Queryable, AsChangeset, Serialize, Deserialize)]
 #[table_name = "person_profile"]
 pub struct PersonProfile {
     pub id: i32,
@@ -9,6 +9,7 @@ pub struct PersonProfile {
     pub lastname: String,
     pub email: String,
     pub phone_number: String,
+    pub updated_at: chrono::NaiveDateTime,
 }
 
 #[derive(Insertable)]

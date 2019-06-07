@@ -16,11 +16,12 @@ pub struct Person {
     pub person_role_id: i32,
     pub email: String,
     pub password: String,
-    pub created_at: chrono::NaiveDateTime,
     pub person_profile_id: i32,
     pub active_company_id: Option<i32>,
     pub notif_counter: i32,
     pub is_disabled: bool,
+    pub created_at: chrono::NaiveDateTime,
+    pub updated_at: chrono::NaiveDateTime,
 }
 
 #[derive(Insertable)]

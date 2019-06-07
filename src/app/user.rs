@@ -18,7 +18,7 @@ pub fn get(conn: db::Conn, _current_admin: CurrentAdmin, id: i32) -> CR<User> {
 
 #[put("/", format = "application/json", data="<input>")]
 pub fn update_me(conn: db::Conn, current_user: CurrentUser, input: Json<UserToUpdate>) -> CR<User> {
-    match update_user(&conn, current_user.id, &input) {
+    match update_user(&conn, current_user.id, input) {
         Ok(up) => up,
         Err(e) => return CR::new(e, Code::ResourceNotFound),
     };
@@ -47,8 +47,8 @@ fn get_user(conn: &db::Conn, person_id: i32) -> CR<User> {
     CR::data_query(User::from_db(&conn, person_id))
 }
 
-fn update_user(conn: &db::Conn, person_id: i32, input: &UserToUpdate) -> QueryResult<Person> {
+fn update_user(conn: &db::Conn, person_id: i32, input: UserToUpdate) -> QueryResult<Person> {
     let person = db::person::find(conn, person_id)?;
-
+    db::person_profile::update(conn, person.person_profile_id, input)?;
     QueryResult::Ok(person)
 }

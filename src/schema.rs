@@ -3,8 +3,9 @@ table! {
         id -> Int4,
         label -> Varchar,
         created_by_id -> Int4,
-        created_at -> Timestamp,
         is_disabled -> Bool,
+        created_at -> Timestamp,
+        updated_at -> Timestamp,
     }
 }
 
@@ -14,6 +15,8 @@ table! {
         person_id -> Int4,
         company_id -> Int4,
         is_disabled -> Bool,
+        created_at -> Timestamp,
+        updated_at -> Timestamp,
     }
 }
 
@@ -37,11 +40,12 @@ table! {
         person_role_id -> Int4,
         email -> Varchar,
         password -> Varchar,
-        created_at -> Timestamp,
         person_profile_id -> Int4,
         active_company_id -> Nullable<Int4>,
         notif_counter -> Int4,
         is_disabled -> Bool,
+        created_at -> Timestamp,
+        updated_at -> Timestamp,
     }
 }
 
@@ -52,6 +56,7 @@ table! {
         lastname -> Varchar,
         email -> Varchar,
         phone_number -> Varchar,
+        updated_at -> Timestamp,
     }
 }
 

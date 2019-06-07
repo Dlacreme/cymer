@@ -8,7 +8,7 @@ CREATE TABLE person (
   notif_counter INT NOT NULL DEFAULT 0,
   is_disabled bool NOT NULL DEFAULT 'f',
   created_at TIMESTAMP NOT NULL,
-  updated_at TIMESTAMP NOT NULL,
+  updated_at TIMESTAMP NOT NULL
 );
 
 CREATE TABLE person_role (

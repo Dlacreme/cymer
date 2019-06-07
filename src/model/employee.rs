@@ -10,4 +10,6 @@ pub struct Employee {
     pub person_id: i32,
     pub company_id: i32,
     pub is_disabled: bool,
+    pub created_at: chrono::NaiveDateTime,
+    pub updated_at: chrono::NaiveDateTime,
 }

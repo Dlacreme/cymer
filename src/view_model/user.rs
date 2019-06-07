@@ -43,9 +43,9 @@ impl User {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct UserToUpdate {
-    email: Option<String>,
-    firstname: Option<String>,
-    lastname: Option<String>,
-    phone_number: Option<String>,
-    role: Option<PersonRoleEnum>,
+    pub email: Option<String>,
+    pub firstname: Option<String>,
+    pub lastname: Option<String>,
+    pub phone_number: Option<String>,
+    pub role: Option<PersonRoleEnum>,
 }

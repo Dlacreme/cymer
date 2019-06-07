@@ -16,7 +16,21 @@ pub fn create(co: &PgConnection, email: &str) -> QueryResult<PersonProfile> {
 }
 
 pub fn update(co: &PgConnection, id: i32, user: UserToUpdate) -> QueryResult<PersonProfile> {
-    let row = diesel::update(sProfile::table.filter(sProfile::id.eq(id)));
-
-    row.get_result(co)
+    let mut initial_row = find(co, id)?;
+    initial_row.updated_at = chrono::Utc::now().naive_utc();
+    if user.email.is_some() {
+        initial_row.email = user.email.unwrap();
+    }
+    if user.firstname.is_some() {
+        initial_row.firstname = user.firstname.unwrap();
+    }
+    if user.lastname.is_some() {
+        initial_row.lastname = user.lastname.unwrap();
+    }
+    if user.phone_number.is_some() {
+        initial_row.email = user.phone_number.unwrap();
+    }
+    println!("UPDATE {:?}", initial_row);
+    diesel::update(sProfile::table.filter(sProfile::id.eq(id)))
+        .set(&initial_row).get_result(co)
 }
