@@ -18,7 +18,7 @@ pub fn get(conn: db::Conn, _current_admin: CurrentAdmin, id: i32) -> CR<User> {
 
 #[put("/", format = "application/json", data="<input>")]
 pub fn update_me(conn: db::Conn, current_user: CurrentUser, input: Json<UserToUpdate>) -> CR<User> {
-    match update_user(&conn, current_user.id, input) {
+    match update_user(&conn, current_user.id, input.into_inner()) {
         Ok(up) => up,
         Err(e) => return CR::new(e, Code::ResourceNotFound),
     };
