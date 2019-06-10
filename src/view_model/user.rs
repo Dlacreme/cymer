@@ -1,5 +1,6 @@
 use serde_derive::{Serialize, Deserialize};
 use diesel::{PgConnection, QueryResult};
+use crate::parser::validator;
 use crate::model::person_role::{PersonRoleEnum, to_enum};
 use crate::db;
 use super::company::Company;
@@ -48,4 +49,23 @@ pub struct UserToUpdate {
     pub lastname: Option<String>,
     pub phone_number: Option<String>,
     pub role: Option<PersonRoleEnum>,
+}
+
+impl UserToUpdate {
+    pub fn validate(&self) -> Result<(), &str> {
+        if self.email.is_some() {
+            validator::is_email(self.email.as_ref().unwrap())?;
+        }
+        if self.firstname.is_some() {
+            validator::is_alpha(self.firstname.as_ref().unwrap())?;
+        }
+        if self.email.is_some() {
+            validator::is_alpha(self.lastname.as_ref().unwrap())?;
+        }
+        if self.email.is_some() {
+            validator::is_num(self.phone_number.as_ref().unwrap())?;
+        }
+
+        Result::Ok(())
+    }
 }

@@ -4,6 +4,7 @@ use crate::schema::person as sPerson;
 use crate::model::person::{Person, InsertablePerson};
 use bcrypt::verify;
 use super::person_profile;
+use crate::model::person_role::{PersonRoleEnum, from_enum};
 
 pub fn find(co: &PgConnection, id: i32) -> QueryResult<Person> {
     sPerson::table.find(id).get_result(co)
@@ -31,4 +32,10 @@ pub fn create(co: &PgConnection, email: &str, password: &str) -> QueryResult<Per
     diesel::insert_into(sPerson::table)
         .values(&person)
         .get_result::<Person>(co)
+}
+
+pub fn update_role(co: &PgConnection, person_id: i32, role: PersonRoleEnum) -> QueryResult<Person> {
+    diesel::update(sPerson::table.filter(sPerson::id.eq(person_id)))
+        .set(sPerson::person_role_id.eq(from_enum(role)))
+        .get_result(co)
 }

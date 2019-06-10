@@ -1,7 +1,7 @@
 use serde_derive::{Serialize, Deserialize};
 use crate::schema::person_role;
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Copy, Clone)]
 pub enum PersonRoleEnum {
     Admin = 1,
     User = 2,
@@ -19,5 +19,12 @@ pub fn to_enum(id: i32) -> PersonRoleEnum {
         1 => PersonRoleEnum::Admin,
         2 => PersonRoleEnum::User,
         _ => unreachable!(),
+    }
+}
+
+pub fn from_enum(role: PersonRoleEnum) -> i32 {
+    match role {
+        PersonRoleEnum::Admin => 1,
+        PersonRoleEnum::User => 2,
     }
 }

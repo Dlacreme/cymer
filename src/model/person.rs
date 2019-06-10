@@ -1,8 +1,8 @@
-use crate::schema::person;
-use serde_derive::{Serialize, Deserialize};
 use crate::model::person_profile::PersonProfile;
 use crate::model::person_role::PersonRole;
+use crate::schema::person;
 use bcrypt::hash;
+use serde_derive::{Deserialize, Serialize};
 
 const HASH_COMPLEX: u32 = 4;
 const DEFAULT_ROLE_ID: i32 = 2;
@@ -31,6 +31,7 @@ pub struct InsertablePerson {
     pub email: String,
     pub password: String,
     pub created_at: chrono::NaiveDateTime,
+    pub updated_at: chrono::NaiveDateTime,
     pub notif_counter: i32,
     pub person_profile_id: i32,
 }
@@ -41,6 +42,7 @@ impl InsertablePerson {
             email: String::from(email),
             password: hash(password, HASH_COMPLEX).unwrap(),
             person_role_id: DEFAULT_ROLE_ID,
+            updated_at: chrono::Utc::now().naive_utc(),
             created_at: chrono::Utc::now().naive_utc(),
             notif_counter: 0,
             person_profile_id: person_profile_id,
