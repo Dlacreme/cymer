@@ -1,7 +1,7 @@
 use crate::cr::{Code, CR};
 use crate::current_user::CurrentUser;
 use crate::db;
-use crate::view_model::company::{Company, CompanyToCreate, CompanyToUpdate};
+use crate::view_model::company::{Company, CompanyEmployees, CompanyToCreate, CompanyToUpdate};
 use rocket_contrib::json::Json;
 
 #[get("/")]
@@ -18,7 +18,7 @@ pub fn get(conn: db::Conn, _current_user: CurrentUser, id: i32) -> CR<Company> {
 }
 
 #[get("/employees")]
-pub fn get_active_employees(conn: db::Conn, current_user: CurrentUser) -> CR<Vec<Employee>> {
+pub fn get_active_employees(conn: db::Conn, current_user: CurrentUser) -> CR<CompanyEmployees> {
     if current_user.active_company_id.is_none() {
         return CR::new(crate::msg::NO_ACTIVE_COMPANY, Code::ResourceNotFound);
     }
@@ -101,6 +101,6 @@ pub fn update_company(conn: &db::Conn, company_id: i32, input: CompanyToUpdate) 
     }
 }
 
-pub fn get_company_employees(conn: &db::Conn, company_id: i32) -> CR<Vec<Employee>> {
-    CR::data_query(db::employee::get_from_company(conn, company_id))
+pub fn get_company_employees(conn: &db::Conn, company_id: i32) -> CR<CompanyEmployees> {
+    CR::data_query(CompanyEmployees::from_db(conn, company_id))
 }

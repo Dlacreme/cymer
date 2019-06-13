@@ -26,6 +26,25 @@ impl Company {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
+pub struct CompanyEmployees {
+    pub id: i32,
+    pub label: String,
+    pub employees: Vec<super::employee::Employee>,
+}
+
+impl CompanyEmployees {
+    pub fn from_db(co: &PgConnection, id: i32) -> QueryResult<Self> {
+        let company = db::company::find(co, id)?;
+        let emps = super::employee::Employee::list_from_db(co, id)?;
+        QueryResult::Ok(Self {
+            id: company.id,
+            label: company.label,
+            employees: emps,
+        })
+    }
+}
+
+#[derive(Debug, Serialize, Deserialize)]
 pub struct CompanyToCreate {
     pub label: String,
 }
