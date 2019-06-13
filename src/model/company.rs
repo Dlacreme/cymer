@@ -2,7 +2,7 @@ use crate::model::person::Person;
 use crate::schema::company;
 use serde_derive::{Deserialize, Serialize};
 
-#[derive(Debug, Queryable, Associations, Serialize, Deserialize)]
+#[derive(Debug, Queryable, Associations, AsChangeset, Serialize, Deserialize)]
 #[belongs_to(Person, foreign_key = "created_by_id")]
 #[table_name = "company"]
 pub struct Company {

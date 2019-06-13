@@ -2,11 +2,9 @@
 INSERT INTO person_role (label) VALUES ('Admin');
 INSERT INTO person_role (label) VALUES ('User');
 
+INSERT INTO employee_role (label) VALUES ('Admin');
 INSERT INTO employee_role (label) VALUES ('Manager');
-INSERT INTO employee_role (label) VALUES ('ReadOrder');
-INSERT INTO employee_role (label) VALUES ('EditOrder');
-INSERT INTO employee_role (label) VALUES ('ReadProduct');
-INSERT INTO employee_role (label) VALUES ('EditProduct');
+INSERT INTO employee_role (label) VALUES ('Employee');
 
 -- User
 INSERT INTO person_profile (firstname, lastname, email, phone_number, updated_at) VALUES('Mathieu', 'Delacroix', 'mathieu@cymer.com', '+33643085503', NOW());

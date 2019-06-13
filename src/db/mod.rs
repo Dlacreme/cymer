@@ -9,6 +9,7 @@ use std::ops::Deref;
 pub mod person;
 pub mod person_profile;
 pub mod company;
+pub mod employee;
 
 // Extracted from Diesel doc - https://rocket.rs/v0.4/guide/state/#databases
 type Pool = r2d2::Pool<ConnectionManager<PgConnection>>;
