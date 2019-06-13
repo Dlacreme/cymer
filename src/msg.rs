@@ -5,3 +5,4 @@ pub static USER_EXISTING: &str = "User is already existing";
 pub static OK: &str = "Success";
 pub static LOGIN_FAILED: &str = "Invalid credentials";
 pub static NOT_IMPLEMENTED: &str = "Not implemented yet";
+pub static NO_ACTIVE_COMPANY: &str = "No active company found for this user";

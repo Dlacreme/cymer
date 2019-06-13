@@ -1,6 +1,7 @@
-use serde_derive::{Serialize, Deserialize};
-use diesel::{PgConnection, QueryResult};
 use crate::db;
+use crate::model::company::Company as CompanyModel;
+use diesel::{PgConnection, QueryResult};
+use serde_derive::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Company {
@@ -16,9 +17,20 @@ impl Company {
             label: company.label,
         })
     }
+    pub fn from_model(co: &CompanyModel) -> Self {
+        Self {
+            id: co.id,
+            label: co.label.clone(),
+        }
+    }
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct CompanyToCreate {
+    pub label: String,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct CompanyToUpdate {
-    label: String,
+    pub label: Option<String>,
 }
