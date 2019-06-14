@@ -1,13 +1,28 @@
 use crate::cr::{CR, Code};
 use crate::current_user::CurrentUser;
+use crate::model::employee_role::EmployeeRoleEnum;
 use crate::db;
 use crate::view_model::employee::Invite;
 use rocket_contrib::json::Json;
 
 #[post("/invite", format = "application/json", data = "<input>")]
-pub fn invite(_conn: db::Conn, _current_user: CurrentUser, input: Json<Invite>) -> CR<String> {
-    println!("INVITE {:?}", input);
-    CR::not_implemented()
+pub fn invite(conn: db::Conn, current_user: CurrentUser, input: Json<Invite>) -> CR<String> {
+    if current_user.active_company_id.is_none() {
+        return CR::new(crate::msg::NO_ACTIVE_COMPANY, Code::ResourceNotFound);
+    }
+    match input.validate() {
+        Ok(_) => (),
+        Err(s) => return CR::new(s, Code::InvalidInput),
+    }
+    let person = match db::person::create(&conn, input.email.as_str(), "") {
+        Ok(ps) => ps,
+        Err(e) => return CR::new(e, Code::InvalidInput)
+    };
+    let emp = match db::employee::create(&conn, person.id, current_user.active_company_id.unwrap(), EmployeeRoleEnum::Admin) {
+        Ok(emp) => emp,
+        Err(e) => return CR::new(e, Code::InvalidInput)
+    };
+    return CR::new("dqwd", Code::InvalidInput)
 }
 
 #[delete("/<id>")]

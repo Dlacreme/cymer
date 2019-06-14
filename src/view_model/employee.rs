@@ -4,10 +4,18 @@ use diesel;
 use diesel::prelude::*;
 use diesel::{sql_query, PgConnection, QueryResult};
 use serde_derive::{Deserialize, Serialize};
+use crate::parser::validator;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Invite {
-    email: String,
+    pub email: String,
+}
+
+impl Invite {
+    pub fn validate(&self) -> Result<(), &str> {
+        validator::is_email(self.email.as_ref())?;
+        Result::Ok(())
+    }
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
