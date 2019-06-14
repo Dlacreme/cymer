@@ -6,3 +6,4 @@ pub static OK: &str = "Success";
 pub static LOGIN_FAILED: &str = "Invalid credentials";
 pub static NOT_IMPLEMENTED: &str = "Not implemented yet";
 pub static NO_ACTIVE_COMPANY: &str = "No active company found for this user";
+pub static RESOURCE_DISABLED: &str = "Resource disabled";

@@ -1,4 +1,4 @@
-use crate::cr::CR;
+use crate::cr::{CR, Code};
 use crate::current_user::CurrentUser;
 use crate::db;
 use crate::view_model::employee::Invite;
@@ -11,7 +11,9 @@ pub fn invite(_conn: db::Conn, _current_user: CurrentUser, input: Json<Invite>) 
 }
 
 #[delete("/<id>")]
-pub fn disable(_conn: db::Conn, _current_user: CurrentUser, id: i32) -> CR<String> {
-    println!("DELETE EMPLOYEE {}", id);
-    CR::not_implemented()
+pub fn disable(conn: db::Conn, _current_user: CurrentUser, id: i32) -> CR<String> {
+    match db::employee::disable(&conn, id) {
+        Ok(_) => CR::new(crate::msg::RESOURCE_DISABLED, Code::Success),
+        Err(_) => CR::new(crate::msg::ENTITY_NOT_FOUND, Code::ResourceNotFound),
+    }
 }
