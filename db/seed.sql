@@ -14,4 +14,3 @@ INSERT INTO employee (person_id, company_id, is_disabled, created_at, updated_at
 INSERT INTO employee_access (employee_id, employee_role_id) VALUES (1, 1);
 INSERT INTO employee_access (employee_id, employee_role_id) VALUES (1, 2);
 INSERT INTO employee_access (employee_id, employee_role_id) VALUES (1, 3);
-INSERT INTO employee_access (employee_id, employee_role_id) VALUES (1, 4);

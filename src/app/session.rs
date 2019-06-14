@@ -14,6 +14,9 @@ pub fn login(conn: db::Conn, login: Json<Login>) -> CR<LoginResult> {
     };
     let person = match db::person::get_by_email(&conn, login.email.as_str()) {
         Ok(person) => {
+            if person.password.is_empty() {
+                return CR::new(msg::LOGIN_FAILED, cr::Code::InvalidPassword);
+            }
             match bcrypt::verify(&login.password, person.password.as_str()) {
                 Ok(is_valid) => {
                     if is_valid == false {

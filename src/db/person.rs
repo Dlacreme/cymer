@@ -59,3 +59,9 @@ pub fn disable(co: &PgConnection, id: i32) -> QueryResult<Person> {
         .set(sPerson::is_disabled.eq(true))
         .get_result(co)
 }
+
+pub fn clear_password(co: &PgConnection, id: i32) -> QueryResult<Person> {
+    diesel::update(sPerson::table.filter(sPerson::id.eq(id)))
+        .set(sPerson::password.eq(""))
+        .get_result(co)
+}
