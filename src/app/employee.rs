@@ -10,27 +10,28 @@ pub fn invite(conn: db::Conn, current_user: CurrentUser, input: Json<Invite>) ->
     if current_user.active_company_id.is_none() {
         return CR::new(crate::msg::NO_ACTIVE_COMPANY, Code::ResourceNotFound);
     }
-    match input.validate() {
-        Ok(_) => (),
-        Err(s) => return CR::new(s, Code::InvalidInput),
-    }
-    let person = match db::person::create(&conn, input.email.as_str(), "") {
-        Ok(ps) => ps,
-        Err(e) => return CR::new(e, Code::InvalidInput),
-    };
-    match db::employee::create(
-        &conn,
-        person.id,
-        current_user.active_company_id.unwrap(),
-        EmployeeRoleEnum::Admin,
-    ) {
-        Ok(_) => (),
-        Err(e) => return CR::new(e, Code::InvalidInput),
-    };
-    match crate::service::reset_password::invite(&conn, person.id) {
-        Ok(_) => CR::new(crate::msg::OK, Code::Success),
-        Err(_) => CR::new(crate::msg::SERVER_ERROR, Code::ServerError),
-    }
+    return CR::not_implemented()
+    // match input.validate() {
+    //     Ok(_) => (),
+    //     Err(s) => return CR::new(s, Code::InvalidInput),
+    // }
+    // let person = match db::person::create(&conn, input.email.as_str(), "") {
+    //     Ok(ps) => ps,
+    //     Err(e) => return CR::new(e, Code::InvalidInput),
+    // };
+    // match db::employee::create(
+    //     &conn,
+    //     person.id,
+    //     current_user.active_company_id.unwrap(),
+    //     EmployeeRoleEnum::Admin,
+    // ) {
+    //     Ok(_) => (),
+    //     Err(e) => return CR::new(e, Code::InvalidInput),
+    // };
+    // match crate::service::reset_password::invite(&conn, person.id) {
+    //     Ok(_) => CR::new(crate::msg::OK, Code::Success),
+    //     Err(_) => CR::new(crate::msg::SERVER_ERROR, Code::ServerError),
+    // }
 }
 
 #[delete("/<id>")]
