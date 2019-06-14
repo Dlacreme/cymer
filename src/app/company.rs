@@ -1,7 +1,7 @@
 use crate::cr::{Code, CR};
 use crate::current_user::CurrentUser;
 use crate::db;
-use crate::view_model::company::{Company, CompanyEmployees, CompanyToCreate, CompanyToUpdate};
+use crate::view_model::company::{AvailableCompany, Company, CompanyEmployees, CompanyToCreate, CompanyToUpdate};
 use rocket_contrib::json::Json;
 
 #[get("/")]
@@ -26,14 +26,13 @@ pub fn get_active_employees(conn: db::Conn, current_user: CurrentUser) -> CR<Com
 }
 
 #[get("/<id>/employees")]
-pub fn get_employees(_conn: db::Conn, _current_user: CurrentUser, id: i32) -> CR<String> {
-    println!("GET EMPLOYEES COMPANY {}", id);
-    CR::not_implemented()
+pub fn get_employees(conn: db::Conn, _current_user: CurrentUser, id: i32) -> CR<CompanyEmployees> {
+    get_company_employees(&conn, id)
 }
 
 #[get("/list")]
-pub fn get_available(_conn: db::Conn, _current_user: CurrentUser) -> CR<String> {
-    CR::not_implemented()
+pub fn get_available(conn: db::Conn, current_user: CurrentUser) -> CR<Vec<AvailableCompany>> {
+    CR::data_query(AvailableCompany::list_from_db(&conn, current_user.id))
 }
 
 #[post("/<id>/use")]

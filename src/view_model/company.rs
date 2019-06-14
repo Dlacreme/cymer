@@ -1,6 +1,9 @@
 use crate::db;
 use crate::model::company::Company as CompanyModel;
-use diesel::{PgConnection, QueryResult};
+use crate::schema_manual::available_company;
+use diesel;
+use diesel::prelude::*;
+use diesel::{sql_query, PgConnection, QueryResult};
 use serde_derive::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -52,4 +55,28 @@ pub struct CompanyToCreate {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct CompanyToUpdate {
     pub label: Option<String>,
+}
+
+#[derive(Queryable, QueryableByName, Serialize, Deserialize, Debug)]
+#[table_name = "available_company"]
+pub struct AvailableCompany {
+    id: i32,
+    label: String,
+}
+
+impl AvailableCompany {
+    pub fn list_from_db(co: &PgConnection, person_id: i32) -> QueryResult<Vec<Self>> {
+        sql_query(format!(
+            "SELECT c.id, c.label       \
+             FROM  employee e           \
+             INNER JOIN company c       \
+             ON c.id = e.company_id     \
+             WHERE e.person_id = {}     \
+             AND e.is_disabled = 'f'    \
+             GROUP BY c.id              \
+             ",
+            person_id
+        ))
+        .load(co)
+    }
 }

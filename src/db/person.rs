@@ -53,3 +53,9 @@ pub fn update_active_company(
         .set(sPerson::active_company_id.eq(company_id))
         .get_result(co)
 }
+
+pub fn disable(co: &PgConnection, id: i32) -> QueryResult<Person> {
+    diesel::update(sPerson::table.filter(sPerson::id.eq(id)))
+        .set(sPerson::is_disabled.eq(true))
+        .get_result(co)
+}

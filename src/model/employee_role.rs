@@ -6,6 +6,7 @@ pub enum EmployeeRoleEnum {
     Admin = 1,
     Manager = 2,
     Employee = 3,
+    Other = 4,
 }
 
 #[derive(Queryable, AsChangeset, Serialize, Deserialize)]
@@ -20,6 +21,7 @@ pub fn to_enum(id: i32) -> EmployeeRoleEnum {
         1 => EmployeeRoleEnum::Admin,
         2 => EmployeeRoleEnum::Manager,
         3 => EmployeeRoleEnum::Employee,
+        4 => EmployeeRoleEnum::Other,
         _ => unreachable!(),
     }
 }
@@ -29,5 +31,6 @@ pub fn from_enum(role: EmployeeRoleEnum) -> i32 {
         EmployeeRoleEnum::Admin => 1,
         EmployeeRoleEnum::Manager => 2,
         EmployeeRoleEnum::Employee => 3,
+        EmployeeRoleEnum::Other => 4,
     }
 }

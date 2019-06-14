@@ -18,6 +18,7 @@ pub mod service;
 pub mod db;
 pub mod model;
 pub mod schema;
+pub mod schema_manual;
 pub mod current_user;
 pub mod view_model;
 mod app;

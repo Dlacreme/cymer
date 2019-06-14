@@ -10,6 +10,12 @@ pub fn find(co: &PgConnection, id: i32) -> QueryResult<Employee> {
     sEmployee::table.find(id).get_result(co)
 }
 
+pub fn disable(co: &PgConnection, id: i32) -> QueryResult<Employee> {
+    diesel::update(sEmployee::table.filter(sEmployee::id.eq(id)))
+        .set(sEmployee::is_disabled.eq(true))
+        .get_result(co)
+}
+
 pub fn get_from_company(co: &PgConnection, company_id: i32) -> QueryResult<Vec<Employee>> {
     sEmployee::table
         .filter(sEmployee::company_id.eq(company_id))
